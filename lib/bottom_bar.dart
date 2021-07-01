@@ -38,10 +38,6 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(_pages[_selectedIndex].title),
-      ),
       body: _pages[_selectedIndex].page,
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),
