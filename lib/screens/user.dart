@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:list_tile_switch/list_tile_switch.dart';
+import 'package:provider/provider.dart';
 import 'package:udemy_course/consts/app_colors.dart';
+import 'package:udemy_course/providers/dark_theme_provider.dart';
 
 class UserScreen extends StatefulWidget {
   @override
@@ -8,7 +10,6 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
-  bool _value = false;
   late ScrollController _scrollController;
   var top = 0.0;
 
@@ -23,6 +24,8 @@ class _UserScreenState extends State<UserScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final themeChange = Provider.of<DarkThemeProvider>(context);
+
     return Scaffold(
         body: Center(
             child: CustomScrollView(
@@ -135,11 +138,11 @@ class _UserScreenState extends State<UserScreen> {
                 color: Colors.grey,
               ),
               ListTileSwitch(
-                value: _value,
+                value: themeChange.darkTheme,
                 leading: const Icon(Icons.access_alarms),
                 onChanged: (value) {
                   setState(() {
-                    _value = value;
+                    themeChange.darkTheme = value;
                   });
                 },
                 visualDensity: VisualDensity.comfortable,

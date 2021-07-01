@@ -1,21 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:udemy_course/providers/dark_theme_provider.dart';
 
 import 'bottom_bar.dart';
+import 'consts/app_styles.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  DarkThemeProvider themeChangeProvider = DarkThemeProvider();
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-          primarySwatch: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity),
-      home: BottomBarScreen(),
-    );
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) {
+            return themeChangeProvider;
+          })
+        ],
+        child:
+            Consumer<DarkThemeProvider>(builder: (context, themeData, child) {
+          return MaterialApp(
+            title: 'Flutter Demo',
+            theme: AppStyles.themeData(themeChangeProvider.darkTheme, context),
+            home: BottomBarScreen(),
+          );
+        }));
   }
 }
