@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:udemy_course/screens/cart_empty.dart';
 
 class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Center(
-      child: Text(
-        'Cart ',
-        style: TextStyle(fontSize: 30, fontWeight: FontWeight.w800),
-      ),
-    ));
+    return Scaffold(body: CartEmpty());
   }
 }
