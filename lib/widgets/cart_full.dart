@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:udemy_course/consts/app_icons.dart';
 import '/consts/app_colors.dart';
 
 class CartFull extends StatefulWidget {

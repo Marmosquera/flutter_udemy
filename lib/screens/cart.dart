@@ -55,7 +55,8 @@ class CartScreen extends StatelessWidget {
                         'Checkout',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            color: Theme.of(ctx).textSelectionColor,
+                            color:
+                                Theme.of(ctx).textSelectionTheme.selectionColor,
                             fontSize: 18,
                             fontWeight: FontWeight.w600),
                       ),
