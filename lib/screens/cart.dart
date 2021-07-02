@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:udemy_course/screens/cart_empty.dart';
-import 'package:udemy_course/screens/cart_full.dart';
+import '/widgets/cart_empty.dart';
+import '/widgets/cart_full.dart';
 
 class CartScreen extends StatelessWidget {
   @override
