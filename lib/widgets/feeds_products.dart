@@ -18,18 +18,26 @@ class _FeedsProductsState extends State<FeedsProducts> {
           color: Theme.of(context).backgroundColor),
       child: Column(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(2),
-            child: Container(
-              width: double.infinity,
-              constraints: BoxConstraints(
-                  minHeight: 100,
-                  maxHeight: MediaQuery.of(context).size.height * 0.3),
-              child: Image.network(
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4PdHtXka2-bDDww6Nuect3Mt9IwpE4v4HNw&usqp=CAU',
-                fit: BoxFit.fitWidth,
+          Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(2),
+                child: Container(
+                  width: double.infinity,
+                  constraints: BoxConstraints(
+                      minHeight: 100,
+                      maxHeight: MediaQuery.of(context).size.height * 0.3),
+                  child: Image.network(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4PdHtXka2-bDDww6Nuect3Mt9IwpE4v4HNw&usqp=CAU',
+                    fit: BoxFit.fitWidth,
+                  ),
+                ),
               ),
-            ),
+              Chip(
+                label: Text('New'),
+                backgroundColor: Colors.pink,
+              ),
+            ],
           ),
           Container(
             padding: EdgeInsets.only(left: 5),
