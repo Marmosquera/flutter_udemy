@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:list_tile_switch/list_tile_switch.dart';
 import 'package:provider/provider.dart';
 import 'package:udemy_course/consts/app_colors.dart';
-import 'package:udemy_course/providers/dark_theme_provider.dart';
+import 'package:udemy_course/providers/app_theme_provider.dart';
 
 class UserScreen extends StatefulWidget {
   @override
@@ -24,7 +24,7 @@ class _UserScreenState extends State<UserScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
+    final themeChange = Provider.of<AppThemeProvider>(context);
 
     return Scaffold(
         body: Center(
@@ -138,11 +138,11 @@ class _UserScreenState extends State<UserScreen> {
                 color: Colors.grey,
               ),
               ListTileSwitch(
-                value: themeChange.darkTheme,
+                value: themeChange.appTheme,
                 leading: const Icon(Icons.access_alarms),
                 onChanged: (value) {
                   setState(() {
-                    themeChange.darkTheme = value;
+                    themeChange.appTheme = value;
                   });
                 },
                 visualDensity: VisualDensity.comfortable,

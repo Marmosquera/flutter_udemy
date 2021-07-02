@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:udemy_course/providers/dark_theme_provider.dart';
+import 'package:udemy_course/providers/app_theme_provider.dart';
 
 import 'bottom_bar.dart';
 import 'consts/app_styles.dart';
@@ -15,7 +15,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  DarkThemeProvider themeChangeProvider = DarkThemeProvider();
+  AppThemeProvider themeChangeProvider = AppThemeProvider();
 
   @override
   void initState() {
@@ -31,18 +31,17 @@ class _MyAppState extends State<MyApp> {
             return themeChangeProvider;
           })
         ],
-        child:
-            Consumer<DarkThemeProvider>(builder: (context, themeData, child) {
+        child: Consumer<AppThemeProvider>(builder: (context, themeData, child) {
           return MaterialApp(
             title: 'Flutter Demo',
-            theme: AppStyles.themeData(themeChangeProvider.darkTheme, context),
+            theme: AppStyles.themeData(themeChangeProvider.appTheme, context),
             home: BottomBarScreen(),
           );
         }));
   }
 
   void getCurrentAppTheme() async {
-    themeChangeProvider.darkTheme =
-        await themeChangeProvider.darkThemeRepository.getTheme();
+    themeChangeProvider.appTheme =
+        await themeChangeProvider.appThemeRepository.getTheme();
   }
 }
