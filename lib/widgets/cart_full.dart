@@ -12,7 +12,7 @@ class _CartFullState extends State<CartFull> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 135,
+        height: 140,
         margin: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
