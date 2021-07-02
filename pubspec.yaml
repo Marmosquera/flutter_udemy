@@ -26,6 +26,7 @@ dependencies:
   list_tile_switch: ^1.0.0
   provider: ^5.0.0
   shared_preferences: ^2.0.6
+  backdrop: ^0.6.2
   cupertino_icons: ^1.0.2
   feather_icons: ^1.0.1
 
