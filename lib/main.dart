@@ -7,6 +7,7 @@ import 'bottom_bar.dart';
 import 'consts/app_styles.dart';
 import 'screens/brands_navigation_rail.dart';
 import 'screens/cart.dart';
+import 'screens/product_detail.dart';
 import 'screens/wishlist.dart';
 
 void main() {
@@ -39,19 +40,19 @@ class _MyAppState extends State<MyApp> {
           return MaterialApp(
             title: 'Flutter Demo',
             theme: AppStyles.themeData(themeChangeProvider.appTheme, context),
-            //home: BottomBarScreen(),
+            home: BottomBarScreen(),
             routes: {
-              '/': (ctx) => BottomBarScreen(), //LandingPage(),
+              //'/': (ctx) => BottomBarScreen(), //LandingPage(),
               BrandNavigationRailScreen.routeName: (ctx) =>
                   BrandNavigationRailScreen(),
               CartScreen.routeName: (ctx) => CartScreen(),
               FeedsScreen.routeName: (ctx) => FeedsScreen(),
               WishlistScreen.routeName: (ctx) => WishlistScreen(),
-              //ProductDetails.routeName: (ctx) => ProductDetails(),
+              ProductDetail.routeName: (ctx) => ProductDetail(),
               //CategoriesFeedsScreen.routeName: (ctx) =>                        CategoriesFeedsScreen(),
               //LoginScreen.routeName: (ctx) => LoginScreen(),
               //SignUpScreen.routeName: (ctx) => SignUpScreen(),
-              BottomBarScreen.routeName: (ctx) => BottomBarScreen(),
+              //BottomBarScreen.routeName: (ctx) => BottomBarScreen(),
               //UploadProductForm.routeName: (ctx) => UploadProductForm(),
             },
           );

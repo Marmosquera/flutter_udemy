@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_card_swipper/flutter_card_swiper.dart';
 
 import '/screens/brands_navigation_rail.dart';
+import 'category.dart';
 import 'popular_products.dart';
 
 class FrontLayer extends StatelessWidget {
@@ -47,6 +48,26 @@ class FrontLayer extends StatelessWidget {
                     _carouselIcons.length,
                     (index) =>
                         Image(image: ExactAssetImage(_carouselIcons[index])))),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'Categories',
+              style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
+            ),
+          ),
+          Container(
+            width: double.infinity,
+            height: 180,
+            child: ListView.builder(
+              itemCount: 7,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (BuildContext ctx, int index) {
+                return CategoryWidget(
+                  index: index,
+                );
+              },
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),

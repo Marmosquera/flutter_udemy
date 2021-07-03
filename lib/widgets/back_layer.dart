@@ -4,7 +4,6 @@ import '/consts/app_icons.dart';
 import '/consts/app_colors.dart';
 import '/screens/cart.dart';
 import '/screens/feeds.dart';
-import '/screens/brands_navigation_rail.dart';
 import '/screens/wishlist.dart';
 
 class BackLayerMenu extends StatelessWidget {
