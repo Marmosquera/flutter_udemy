@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '/widgets/feeds_products.dart';
 
 class FeedsScreen extends StatelessWidget {
+  static const routeName = '/Feeds';
   @override
   Widget build(BuildContext context) {
     return Scaffold(

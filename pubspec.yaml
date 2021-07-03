@@ -28,6 +28,7 @@ dependencies:
   shared_preferences: ^2.0.6
   backdrop: ^0.6.2
   carousel_pro_nullsafety: ^1.0.2
+  flutter_card_swipper: ^0.4.0
   cupertino_icons: ^1.0.2
   feather_icons: ^1.0.1
 
@@ -53,7 +54,13 @@ flutter:
     - assets/images/carousel2.jpeg
     - assets/images/carousel3.jpg
     - assets/images/carousel4.png
-
+    - assets/images/addidas.jpg
+    - assets/images/apple.jpg
+    - assets/images/dell.jpg
+    - assets/images/h&m.jpg
+    - assets/images/nike.jpg
+    - assets/images/samsung.jpg
+    - assets/images/huawei.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
