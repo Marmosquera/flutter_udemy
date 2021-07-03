@@ -133,11 +133,11 @@ class _BrandNavigationRailScreenState extends State<BrandNavigationRailScreen> {
                             height: 20,
                           ),
                           Center(
-                            child: CircleAvatar(
-                              radius: 16,
-                              backgroundImage: NetworkImage(
-                                  "https://cdn1.vectorstock.com/i/thumb-large/62/60/default-avatar-photo-placeholder-profile-image-vector-21666260.jpg"),
-                            ),
+                            child: IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: Icon(Icons.chevron_left_rounded)),
                           ),
                           SizedBox(
                             height: 80,

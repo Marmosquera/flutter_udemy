@@ -7,6 +7,7 @@ import 'bottom_bar.dart';
 import 'consts/app_styles.dart';
 import 'screens/brands_navigation_rail.dart';
 import 'screens/cart.dart';
+import 'screens/wishlist.dart';
 
 void main() {
   runApp(MyApp());
@@ -38,14 +39,14 @@ class _MyAppState extends State<MyApp> {
           return MaterialApp(
             title: 'Flutter Demo',
             theme: AppStyles.themeData(themeChangeProvider.appTheme, context),
-            home: BottomBarScreen(),
+            //home: BottomBarScreen(),
             routes: {
-              //   '/': (ctx) => LandingPage(),
+              '/': (ctx) => BottomBarScreen(), //LandingPage(),
               BrandNavigationRailScreen.routeName: (ctx) =>
                   BrandNavigationRailScreen(),
               CartScreen.routeName: (ctx) => CartScreen(),
               FeedsScreen.routeName: (ctx) => FeedsScreen(),
-              //WishlistScreen.routeName: (ctx) => WishlistScreen(),
+              WishlistScreen.routeName: (ctx) => WishlistScreen(),
               //ProductDetails.routeName: (ctx) => ProductDetails(),
               //CategoriesFeedsScreen.routeName: (ctx) =>                        CategoriesFeedsScreen(),
               //LoginScreen.routeName: (ctx) => LoginScreen(),

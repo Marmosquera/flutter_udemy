@@ -4,6 +4,8 @@ import '/consts/app_icons.dart';
 import '/consts/app_colors.dart';
 import '/screens/cart.dart';
 import '/screens/feeds.dart';
+import '/screens/brands_navigation_rail.dart';
+import '/screens/wishlist.dart';
 
 class BackLayerMenu extends StatelessWidget {
   @override
@@ -121,7 +123,7 @@ class BackLayerMenu extends StatelessWidget {
                 }, 'Cart', 1),
                 const SizedBox(height: 10.0),
                 content(context, () {
-                  navigateTo(context, FeedsScreen.routeName);
+                  navigateTo(context, WishlistScreen.routeName);
                 }, 'Wishlist', 2),
                 const SizedBox(height: 10.0),
                 content(context, () {
