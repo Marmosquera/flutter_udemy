@@ -1,9 +1,8 @@
 import 'package:backdrop/backdrop.dart';
 import 'package:flutter/material.dart';
-import 'package:udemy_course/widgets/front_layer.dart';
 import '/consts/app_colors.dart';
-import '/widgets/back_layer.dart';
-import '/widgets/front_layer.dart';
+import '/widgets/home_back_layer.dart';
+import '/widgets/home_front_layer.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -28,9 +27,9 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
         backLayer: Center(
-          child: BackLayerMenu(),
+          child: HomeBackLayerMenu(),
         ),
-        frontLayer: FrontLayer(),
+        frontLayer: HomeFrontLayer(),
       ),
     );
   }

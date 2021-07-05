@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:udemy_course/models/product.dart';
 import 'package:udemy_course/screens/product_detail.dart';
 
 class FeedsProducts extends StatefulWidget {
-  FeedsProducts({Key? key}) : super(key: key);
+  final Product product;
+
+  FeedsProducts({Key? key, required this.product}) : super(key: key);
 
   @override
   _FeedsProductsState createState() => _FeedsProductsState();
@@ -31,8 +34,8 @@ class _FeedsProductsState extends State<FeedsProducts> {
                         minHeight: 100,
                         maxHeight: MediaQuery.of(context).size.height * 0.3),
                     child: Image.network(
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4PdHtXka2-bDDww6Nuect3Mt9IwpE4v4HNw&usqp=CAU',
-                      fit: BoxFit.fitWidth,
+                      widget.product.imageUrl,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 ),
@@ -52,7 +55,7 @@ class _FeedsProductsState extends State<FeedsProducts> {
                     height: 4,
                   ),
                   Text(
-                    'Description',
+                    widget.product.description,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                     style: TextStyle(
@@ -64,7 +67,7 @@ class _FeedsProductsState extends State<FeedsProducts> {
                     height: 4,
                   ),
                   Text(
-                    '\$ 158.99',
+                    '\$ ${widget.product.price}',
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                     style: TextStyle(
@@ -75,7 +78,7 @@ class _FeedsProductsState extends State<FeedsProducts> {
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Quantity: 12'),
+                        Text('Quantity: ${widget.product.quantity}'),
                         IconButton(
                             onPressed: () {},
                             icon: Icon(
