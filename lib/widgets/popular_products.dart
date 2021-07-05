@@ -50,7 +50,7 @@ class PopularProducts extends StatelessWidget {
                       right: 10,
                       top: 8,
                       child: Icon(
-                        Icons.camera,
+                        Icons.star,
                         color: Colors.white,
                       ),
                     ),

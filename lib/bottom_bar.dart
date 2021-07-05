@@ -21,7 +21,11 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   void initState() {
     _pages = [
       _PageListItem(page: HomeScreen(), title: 'Home Screen'),
-      _PageListItem(page: FeedsScreen(), title: 'Feed Screen'),
+      _PageListItem(
+          page: FeedsScreen(
+            showTitle: false,
+          ),
+          title: 'Feed Screen'),
       _PageListItem(page: SearchScreen(), title: 'Search Screen'),
       _PageListItem(page: CartScreen(), title: 'Cart Screen'),
       _PageListItem(page: UserScreen(), title: 'User Screen'),

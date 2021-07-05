@@ -49,7 +49,7 @@ class _MyAppState extends State<MyApp> {
               BrandNavigationRailScreen.routeName: (ctx) =>
                   BrandNavigationRailScreen(),
               CartScreen.routeName: (ctx) => CartScreen(),
-              FeedsScreen.routeName: (ctx) => FeedsScreen(),
+              FeedsScreen.routeName: (ctx) => FeedsScreen(showTitle: true),
               WishlistScreen.routeName: (ctx) => WishlistScreen(),
               ProductDetail.routeName: (ctx) => ProductDetail(),
               CategoriesFeedsScreen.routeName: (ctx) => CategoriesFeedsScreen(),

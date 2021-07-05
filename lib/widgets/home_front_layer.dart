@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_card_swipper/flutter_card_swiper.dart';
 import 'package:provider/provider.dart';
 import 'package:udemy_course/providers/products_provider.dart';
+import 'package:udemy_course/screens/feeds.dart';
 
 import '/screens/brands_navigation_rail.dart';
 import 'category.dart';
@@ -139,7 +140,10 @@ class HomeFrontLayer extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, FeedsScreen.routeName,
+                          arguments: 'popular');
+                    },
                     child: Text(
                       'View all...',
                       style: TextStyle(

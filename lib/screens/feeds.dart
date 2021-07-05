@@ -7,13 +7,28 @@ import '/widgets/feeds_products.dart';
 class FeedsScreen extends StatelessWidget {
   static const routeName = '/Feeds';
 
+  final bool showTitle;
+
+  FeedsScreen({required this.showTitle});
+
   @override
   Widget build(BuildContext context) {
-    final productsProvider = Provider.of<ProductsProvider>(context);
-
-    List<Product> _products = productsProvider.products;
+    final _productsProvider = Provider.of<ProductsProvider>(context);
+    final _products = _productsProvider.products.toList();
+    final onlyPopular =
+        ModalRoute.of(context)?.settings.arguments as String? ?? '';
+    if (onlyPopular == 'popular') {
+      _products.clear();
+      final _productsCopy = _productsProvider.popularProducts;
+      _products.addAll(_productsCopy);
+    }
 
     return Scaffold(
+        appBar: showTitle
+            ? AppBar(
+                title: Text('Feeds'),
+              )
+            : null,
         body: GridView.count(
             crossAxisCount: 2,
             childAspectRatio: 240 / 420,
