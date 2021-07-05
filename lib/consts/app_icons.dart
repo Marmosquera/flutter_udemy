@@ -6,4 +6,5 @@ class AppIcons {
   static IconData search = Icons.search;
   static IconData user = Icons.verified_user;
   static IconData cart = Icons.shopping_bag;
+  static IconData wishlist = Icons.wifi_sharp;
 }

@@ -13,9 +13,10 @@ class FeedsProducts extends StatefulWidget {
 class _FeedsProductsState extends State<FeedsProducts> {
   @override
   Widget build(BuildContext context) {
-    final product = Provider.of<Product>(context);
+    final _product = Provider.of<Product>(context);
     return InkWell(
-      onTap: () => Navigator.pushNamed(context, ProductDetail.routeName),
+      onTap: () => Navigator.pushNamed(context, ProductDetail.routeName,
+          arguments: _product.id),
       child: Container(
         width: 250,
         height: 290,
@@ -34,7 +35,7 @@ class _FeedsProductsState extends State<FeedsProducts> {
                         minHeight: 100,
                         maxHeight: MediaQuery.of(context).size.height * 0.3),
                     child: Image.network(
-                      product.imageUrl,
+                      _product.imageUrl,
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -55,7 +56,7 @@ class _FeedsProductsState extends State<FeedsProducts> {
                     height: 4,
                   ),
                   Text(
-                    product.description,
+                    _product.description,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                     style: TextStyle(
@@ -67,7 +68,7 @@ class _FeedsProductsState extends State<FeedsProducts> {
                     height: 4,
                   ),
                   Text(
-                    '\$ ${product.price}',
+                    '\$ ${_product.price}',
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                     style: TextStyle(
@@ -78,7 +79,7 @@ class _FeedsProductsState extends State<FeedsProducts> {
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Quantity: ${product.quantity}'),
+                        Text('Quantity: ${_product.quantity}'),
                         IconButton(
                             onPressed: () {},
                             icon: Icon(

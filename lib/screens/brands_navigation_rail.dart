@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:udemy_course/providers/products_provider.dart';
 import '/widgets/brands_rail_widget.dart';
 
 class BrandNavigationRailScreen extends StatefulWidget {
@@ -202,6 +204,9 @@ class ContentSpace extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _productsProvider = Provider.of<ProductsProvider>(context);
+    final _productsBrands = _productsProvider.findByBrand(brand);
+    print(_productsBrands[0].imageUrl);
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(24, 8, 0, 0),
@@ -209,10 +214,11 @@ class ContentSpace extends StatelessWidget {
           removeTop: true,
           context: context,
           child: ListView.builder(
-            itemCount: 5,
-            itemBuilder: (BuildContext context, int index) =>
-                BrandsNavigationRail(),
-          ),
+              itemCount: _productsBrands.length,
+              itemBuilder: (BuildContext context, int index) =>
+                  ChangeNotifierProvider.value(
+                      value: _productsBrands[index],
+                      child: BrandsNavigationRail())),
         ),
       ),
     );

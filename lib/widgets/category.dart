@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:udemy_course/screens/feeds.dart';
+import '/screens/categories_feeds.dart';
 
 class CategoryWidget extends StatefulWidget {
   CategoryWidget({Key? key, required this.index}) : super(key: key);
@@ -26,8 +26,8 @@ class _CategoryWidgetState extends State<CategoryWidget> {
       children: [
         InkWell(
           onTap: () {
-            Navigator.pushNamed(context, FeedsScreen.routeName);
-            print('${categories[widget.index].name}');
+            Navigator.pushNamed(context, CategoriesFeedsScreen.routeName,
+                arguments: categories[widget.index].name);
           },
           child: Container(
             decoration: BoxDecoration(

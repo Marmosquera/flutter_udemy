@@ -1,6 +1,8 @@
 import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swipper/flutter_card_swiper.dart';
+import 'package:provider/provider.dart';
+import 'package:udemy_course/providers/products_provider.dart';
 
 import '/screens/brands_navigation_rail.dart';
 import 'category.dart';
@@ -26,6 +28,8 @@ class HomeFrontLayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _productsProvider = Provider.of<ProductsProvider>(context);
+    final _popularProducts = _productsProvider.popularProducts;
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -105,6 +109,14 @@ class HomeFrontLayer extends StatelessWidget {
               autoplay: true,
               viewportFraction: 0.8,
               scale: 0.9,
+              onTap: (index) {
+                Navigator.of(context).pushNamed(
+                  BrandNavigationRailScreen.routeName,
+                  arguments: {
+                    index,
+                  },
+                );
+              },
               itemBuilder: (BuildContext ctx, int index) {
                 return ClipRRect(
                   borderRadius: BorderRadius.circular(10),
@@ -144,10 +156,11 @@ class HomeFrontLayer extends StatelessWidget {
               width: double.infinity,
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: 8,
-                  itemBuilder: (BuildContext ctx, int idx) {
-                    return PopularProducts();
-                  })),
+                  itemCount: _popularProducts.length,
+                  itemBuilder: (BuildContext context, int index) =>
+                      ChangeNotifierProvider.value(
+                          value: _popularProducts[index],
+                          child: PopularProducts()))),
         ],
       ),
     );

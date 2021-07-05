@@ -8,6 +8,7 @@ import 'consts/app_styles.dart';
 import 'providers/products_provider.dart';
 import 'screens/brands_navigation_rail.dart';
 import 'screens/cart.dart';
+import 'screens/categories_feeds.dart';
 import 'screens/product_detail.dart';
 import 'screens/wishlist.dart';
 
@@ -51,7 +52,7 @@ class _MyAppState extends State<MyApp> {
               FeedsScreen.routeName: (ctx) => FeedsScreen(),
               WishlistScreen.routeName: (ctx) => WishlistScreen(),
               ProductDetail.routeName: (ctx) => ProductDetail(),
-              //CategoriesFeedsScreen.routeName: (ctx) =>                        CategoriesFeedsScreen(),
+              CategoriesFeedsScreen.routeName: (ctx) => CategoriesFeedsScreen(),
               //LoginScreen.routeName: (ctx) => LoginScreen(),
               //SignUpScreen.routeName: (ctx) => SignUpScreen(),
               //BottomBarScreen.routeName: (ctx) => BottomBarScreen(),

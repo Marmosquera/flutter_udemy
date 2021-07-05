@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '/models/product.dart';
 
 class PopularProducts extends StatelessWidget {
   PopularProducts({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final _product = Provider.of<Product>(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -23,8 +26,7 @@ class PopularProducts extends StatelessWidget {
                   height: 170,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: NetworkImage(
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4PdHtXka2-bDDww6Nuect3Mt9IwpE4v4HNw&usqp=CAU'),
+                          image: NetworkImage(_product.imageUrl),
                           fit: BoxFit.contain)),
                 ),
                 Positioned(
@@ -47,7 +49,7 @@ class PopularProducts extends StatelessWidget {
                     padding: EdgeInsets.all(10.0),
                     color: Theme.of(context).backgroundColor,
                     child: Text(
-                      '\$ 123.45',
+                      '\$ ${_product.price}',
                       style: TextStyle(
                         color:
                             Theme.of(context).textSelectionTheme.selectionColor,
@@ -63,7 +65,7 @@ class PopularProducts extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'productsAttributes.title',
+                    _product.title,
                     maxLines: 1,
                     style:
                         TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
@@ -74,7 +76,7 @@ class PopularProducts extends StatelessWidget {
                       Expanded(
                         flex: 5,
                         child: Text(
-                          'productsAttributes.description',
+                          _product.description,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(

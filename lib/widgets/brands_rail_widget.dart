@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:udemy_course/screens/product_detail.dart';
+import '/models/product.dart';
 
 class BrandsNavigationRail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final _product = Provider.of<Product>(context);
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.pushNamed(context, ProductDetail.routeName,
+            arguments: _product.id);
+      },
       child: Container(
         color: Colors.transparent,
         padding: EdgeInsets.only(left: 5.0, right: 5.0),
@@ -19,7 +26,7 @@ class BrandsNavigationRail extends StatelessWidget {
                   color: Theme.of(context).backgroundColor,
                   image: DecorationImage(
                       image: NetworkImage(
-                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4PdHtXka2-bDDww6Nuect3Mt9IwpE4v4HNw&usqp=CAU',
+                        _product.imageUrl,
                       ),
                       fit: BoxFit.contain),
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -52,7 +59,7 @@ class BrandsNavigationRail extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      'title',
+                      _product.title,
                       maxLines: 4,
                       style: TextStyle(
                           fontWeight: FontWeight.w700,
@@ -64,7 +71,7 @@ class BrandsNavigationRail extends StatelessWidget {
                       height: 20.0,
                     ),
                     FittedBox(
-                      child: Text('US 16 \$',
+                      child: Text('US ${_product.price} \$',
                           maxLines: 1,
                           style: TextStyle(
                             color: Colors.red,
@@ -74,7 +81,7 @@ class BrandsNavigationRail extends StatelessWidget {
                     SizedBox(
                       height: 20.0,
                     ),
-                    Text('CatergoryName',
+                    Text(_product.productCategoryName,
                         style: TextStyle(color: Colors.grey, fontSize: 18.0)),
                     SizedBox(
                       height: 20.0,
