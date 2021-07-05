@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:udemy_course/models/product.dart';
-import 'package:udemy_course/screens/product_detail.dart';
+import 'package:provider/provider.dart';
+import '/models/product.dart';
+import '/screens/product_detail.dart';
 
 class FeedsProducts extends StatefulWidget {
-  final Product product;
-
-  FeedsProducts({Key? key, required this.product}) : super(key: key);
+  FeedsProducts({Key? key}) : super(key: key);
 
   @override
   _FeedsProductsState createState() => _FeedsProductsState();
@@ -14,6 +13,7 @@ class FeedsProducts extends StatefulWidget {
 class _FeedsProductsState extends State<FeedsProducts> {
   @override
   Widget build(BuildContext context) {
+    final product = Provider.of<Product>(context);
     return InkWell(
       onTap: () => Navigator.pushNamed(context, ProductDetail.routeName),
       child: Container(
@@ -34,7 +34,7 @@ class _FeedsProductsState extends State<FeedsProducts> {
                         minHeight: 100,
                         maxHeight: MediaQuery.of(context).size.height * 0.3),
                     child: Image.network(
-                      widget.product.imageUrl,
+                      product.imageUrl,
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -55,7 +55,7 @@ class _FeedsProductsState extends State<FeedsProducts> {
                     height: 4,
                   ),
                   Text(
-                    widget.product.description,
+                    product.description,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                     style: TextStyle(
@@ -67,7 +67,7 @@ class _FeedsProductsState extends State<FeedsProducts> {
                     height: 4,
                   ),
                   Text(
-                    '\$ ${widget.product.price}',
+                    '\$ ${product.price}',
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                     style: TextStyle(
@@ -78,7 +78,7 @@ class _FeedsProductsState extends State<FeedsProducts> {
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Quantity: ${widget.product.quantity}'),
+                        Text('Quantity: ${product.quantity}'),
                         IconButton(
                             onPressed: () {},
                             icon: Icon(

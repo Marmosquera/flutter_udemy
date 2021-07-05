@@ -20,7 +20,8 @@ class FeedsScreen extends StatelessWidget {
             crossAxisSpacing: 8,
             mainAxisSpacing: 8,
             children: List.generate(_products.length, (index) {
-              return FeedsProducts(product: _products[index]);
+              return ChangeNotifierProvider.value(
+                  value: _products[index], child: FeedsProducts());
             })));
   }
 }
