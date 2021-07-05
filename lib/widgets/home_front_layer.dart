@@ -1,3 +1,4 @@
+import 'package:backdrop/backdrop.dart';
 import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swipper/flutter_card_swiper.dart';
@@ -6,7 +7,7 @@ import '/screens/brands_navigation_rail.dart';
 import 'category.dart';
 import 'popular_products.dart';
 
-class FrontLayer extends StatelessWidget {
+class HomeFrontLayer extends StatelessWidget {
   final List _carouselIcons = [
     'assets/images/carousel1.png',
     'assets/images/carousel2.jpeg',

@@ -6,7 +6,7 @@ import '/screens/cart.dart';
 import '/screens/feeds.dart';
 import '/screens/wishlist.dart';
 
-class BackLayerMenu extends StatelessWidget {
+class HomeBackLayerMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(

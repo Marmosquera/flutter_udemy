@@ -3,6 +3,8 @@ import 'package:list_tile_switch/list_tile_switch.dart';
 import 'package:provider/provider.dart';
 import 'package:udemy_course/consts/app_colors.dart';
 import 'package:udemy_course/providers/app_theme_provider.dart';
+import 'package:udemy_course/screens/cart.dart';
+import 'package:udemy_course/screens/wishlist.dart';
 
 class UserScreen extends StatefulWidget {
   @override
@@ -108,6 +110,24 @@ class _UserScreenState extends State<UserScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Text(
+                    'User Bag',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
+                  )),
+              Divider(
+                thickness: 1,
+                color: Colors.grey,
+              ),
+              userListTile(context, 'Wishlist', '', Icons.wifi_sharp,
+                  Icons.chevron_right_rounded, () {
+                Navigator.pushNamed(context, WishlistScreen.routeName);
+              }),
+              userListTile(context, 'Cart', '', Icons.wifi_sharp,
+                  Icons.chevron_right_rounded, () {
+                Navigator.pushNamed(context, CartScreen.routeName);
+              }),
+              Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Text(
                   'User Info',
@@ -118,14 +138,12 @@ class _UserScreenState extends State<UserScreen> {
                 thickness: 1,
                 color: Colors.grey,
               ),
-              userListTile(context, 'Email', 'subt', Icons.email),
-              userListTile(context, 'Phone', 'subt', Icons.phone),
-              userListTile(context, 'Shipping', 'subt', Icons.local_shipping),
-              userListTile(context, 'Joined date', 'date', Icons.watch_later),
-              userListTile(context, 'Email', 'subt', Icons.email),
-              userListTile(context, 'Phone', 'subt', Icons.phone),
-              userListTile(context, 'Shipping', 'subt', Icons.local_shipping),
-              userListTile(context, 'Joined date', 'date', Icons.watch_later),
+              userListTile(context, 'Email', 'subt', Icons.email, null, () {}),
+              userListTile(context, 'Phone', 'subt', Icons.phone, null, () {}),
+              userListTile(context, 'Shipping', 'subt', Icons.local_shipping,
+                  null, () {}),
+              userListTile(context, 'Joined date', 'date', Icons.watch_later,
+                  null, () {}),
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Text(
@@ -152,7 +170,8 @@ class _UserScreenState extends State<UserScreen> {
                   'Dark Theme',
                 ),
               ),
-              userListTile(context, 'Logout', '', Icons.exit_to_app_rounded),
+              userListTile(context, 'Logout', '', Icons.exit_to_app_rounded,
+                  null, () {}),
             ],
           ),
         ),
@@ -160,17 +179,18 @@ class _UserScreenState extends State<UserScreen> {
     )));
   }
 
-  Widget userListTile(
-      BuildContext context, String title, String subtitle, IconData icon) {
+  Widget userListTile(BuildContext context, String title, String subtitle,
+      IconData icon, IconData? trailingIcon, VoidCallback fnc) {
     return Material(
       color: Colors.transparent,
       child: InkWell(
         splashColor: Theme.of(context).splashColor,
         child: ListTile(
-          onTap: () {},
+          onTap: fnc,
           title: Text(title),
           subtitle: Text(subtitle),
           leading: Icon(icon),
+          trailing: trailingIcon == null ? null : Icon(trailingIcon),
         ),
       ),
     );
