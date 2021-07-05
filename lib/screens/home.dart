@@ -7,9 +7,10 @@ import '/widgets/home_front_layer.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Backdrop Demo',
-      home: BackdropScaffold(
+    return Scaffold(
+      body: BackdropScaffold(
+        frontLayerBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        headerHeight: MediaQuery.of(context).size.height * 0.25,
         appBar: BackdropAppBar(
           title: Text("Home"),
           leading: BackdropToggleButton(
