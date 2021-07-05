@@ -5,6 +5,7 @@ import 'package:udemy_course/screens/feeds.dart';
 
 import 'bottom_bar.dart';
 import 'consts/app_styles.dart';
+import 'providers/products_provider.dart';
 import 'screens/brands_navigation_rail.dart';
 import 'screens/cart.dart';
 import 'screens/product_detail.dart';
@@ -34,7 +35,8 @@ class _MyAppState extends State<MyApp> {
         providers: [
           ChangeNotifierProvider(create: (_) {
             return themeChangeProvider;
-          })
+          }),
+          ChangeNotifierProvider(create: (_) => ProductsProvider())
         ],
         child: Consumer<AppThemeProvider>(builder: (context, themeData, child) {
           return MaterialApp(
