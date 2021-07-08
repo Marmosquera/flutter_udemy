@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '/models/product.dart';
 import '/screens/product_detail.dart';
+import 'feed_product_dialog.dart';
 
-class FeedsProducts extends StatefulWidget {
-  FeedsProducts({Key? key}) : super(key: key);
+class FeedsProduct extends StatefulWidget {
+  FeedsProduct({Key? key}) : super(key: key);
 
   @override
-  _FeedsProductsState createState() => _FeedsProductsState();
+  _FeedsProductState createState() => _FeedsProductState();
 }
 
-class _FeedsProductsState extends State<FeedsProducts> {
+class _FeedsProductState extends State<FeedsProduct> {
   @override
   Widget build(BuildContext context) {
     final _product = Provider.of<Product>(context);
@@ -81,7 +82,13 @@ class _FeedsProductsState extends State<FeedsProducts> {
                       children: [
                         Text('Quantity: ${_product.quantity}'),
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    FeedProductDialog(product: _product),
+                              );
+                            },
                             icon: Icon(
                               Icons.more_horiz,
                               color: Colors.grey,

@@ -6,7 +6,7 @@ import '/providers/cart_provider.dart';
 import '/providers/products_provider.dart';
 import '/consts/app_colors.dart';
 import '/consts/app_icons.dart';
-import '/widgets/feeds_products.dart';
+import '../widgets/feeds_product.dart';
 
 import 'cart.dart';
 import 'wishlist.dart';
@@ -229,7 +229,7 @@ class _ProductDetailState extends State<ProductDetail> {
                     itemCount: 7,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (BuildContext ctx, int index) {
-                      return FeedsProducts();
+                      return FeedsProduct();
                     },
                   ),
                 ),

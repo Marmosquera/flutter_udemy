@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '/providers/products_provider.dart';
-import '/widgets/feeds_products.dart';
+import '/widgets/feeds_product.dart';
 
 class CategoriesFeedsScreen extends StatelessWidget {
   static const routeName = '/CategoriesFeeds';
@@ -24,7 +24,7 @@ class CategoriesFeedsScreen extends StatelessWidget {
             mainAxisSpacing: 8,
             children: List.generate(productsList.length, (index) {
               return ChangeNotifierProvider.value(
-                  value: productsList[index], child: FeedsProducts());
+                  value: productsList[index], child: FeedsProduct());
             })));
   }
 }
