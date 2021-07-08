@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '/providers/cart_provider.dart';
 import '/providers/products_provider.dart';
 import '/consts/app_colors.dart';
 import '/consts/app_icons.dart';
-import '/models/product.dart';
 import '/widgets/feeds_products.dart';
 
 import 'cart.dart';
@@ -21,6 +21,8 @@ class _ProductDetailState extends State<ProductDetail> {
   @override
   Widget build(BuildContext context) {
     final _productsProvider = Provider.of<ProductsProvider>(context);
+    final _cartProvider = Provider.of<CartProvider>(context);
+
     final _productId = ModalRoute.of(context)!.settings.arguments as String;
     final _product = _productsProvider.products
         .firstWhere((element) => element.id == _productId);
@@ -273,13 +275,19 @@ class _ProductDetailState extends State<ProductDetail> {
                   flex: 3,
                   child: Container(
                     height: 50,
-                    child: RaisedButton(
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      shape: RoundedRectangleBorder(side: BorderSide.none),
-                      color: Colors.redAccent.shade400,
-                      onPressed: () {},
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.redAccent.shade400,
+                          shape: RoundedRectangleBorder(side: BorderSide.none)),
+                      onPressed: _cartProvider.containsItem(_product)
+                          ? () {}
+                          : () {
+                              _cartProvider.addProductToCart(_product);
+                            },
                       child: Text(
-                        'Add to Cart'.toUpperCase(),
+                        _cartProvider.containsItem(_product)
+                            ? 'In Cart'.toUpperCase()
+                            : 'Add to Cart'.toUpperCase(),
                         style: TextStyle(fontSize: 16, color: Colors.white),
                       ),
                     ),
@@ -289,10 +297,10 @@ class _ProductDetailState extends State<ProductDetail> {
                   flex: 2,
                   child: Container(
                     height: 50,
-                    child: RaisedButton(
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      shape: RoundedRectangleBorder(side: BorderSide.none),
-                      color: Theme.of(context).backgroundColor,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: Theme.of(context).backgroundColor,
+                          shape: RoundedRectangleBorder(side: BorderSide.none)),
                       onPressed: () {},
                       child: Row(
                         children: [

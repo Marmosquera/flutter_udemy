@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '/providers/cart_provider.dart';
+import '/consts/app_icons.dart';
+import '/models/cart_item.dart';
 import '/consts/app_colors.dart';
 
 class CartFull extends StatefulWidget {
-  CartFull({Key? key}) : super(key: key);
+  final CartItem cartItem;
+
+  CartFull({Key? key, required this.cartItem}) : super(key: key);
 
   @override
   _CartFullState createState() => _CartFullState();
@@ -11,6 +17,7 @@ class CartFull extends StatefulWidget {
 class _CartFullState extends State<CartFull> {
   @override
   Widget build(BuildContext context) {
+    final _cartProvider = Provider.of<CartProvider>(context);
     return Container(
         height: 140,
         margin: const EdgeInsets.all(10),
@@ -26,8 +33,7 @@ class _CartFullState extends State<CartFull> {
             width: 130,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4PdHtXka2-bDDww6Nuect3Mt9IwpE4v4HNw&usqp=CAU'),
+                image: NetworkImage(widget.cartItem.imageUrl),
                 fit: BoxFit.fill,
               ),
             ),
@@ -42,7 +48,7 @@ class _CartFullState extends State<CartFull> {
                     children: [
                       Flexible(
                         child: Text(
-                          'title',
+                          widget.cartItem.title,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -54,12 +60,14 @@ class _CartFullState extends State<CartFull> {
                         child: InkWell(
                           borderRadius: BorderRadius.circular(32.0),
                           // splashColor: ,
-                          onTap: () {},
+                          onTap: () {
+                            _cartProvider.removeItemById(widget.cartItem.id);
+                          },
                           child: Container(
                             height: 50,
                             width: 50,
                             child: Icon(
-                              Icons.plus_one,
+                              AppIcons.delete,
                               color: Colors.red,
                               size: 22,
                             ),
@@ -75,7 +83,7 @@ class _CartFullState extends State<CartFull> {
                         width: 5,
                       ),
                       Text(
-                        '450\$',
+                        '${widget.cartItem.price}\$',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w600),
                       ),
@@ -88,7 +96,7 @@ class _CartFullState extends State<CartFull> {
                         width: 5,
                       ),
                       Text(
-                        '450\$',
+                        '${widget.cartItem.subTotal.toStringAsFixed(2)} \$',
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
@@ -108,12 +116,17 @@ class _CartFullState extends State<CartFull> {
                         child: InkWell(
                           borderRadius: BorderRadius.circular(4.0),
                           // splashColor: ,
-                          onTap: () {},
+                          onTap: widget.cartItem.quantity < 2
+                              ? null
+                              : () {
+                                  _cartProvider
+                                      .reduceItemByOne(widget.cartItem.id);
+                                },
                           child: Container(
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Icon(
-                                Icons.plus_one,
+                                AppIcons.minus,
                                 color: Colors.red,
                                 size: 22,
                               ),
@@ -136,7 +149,7 @@ class _CartFullState extends State<CartFull> {
                             ]),
                           ),
                           child: Text(
-                            '154',
+                            '${widget.cartItem.quantity}',
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -146,12 +159,15 @@ class _CartFullState extends State<CartFull> {
                         child: InkWell(
                           borderRadius: BorderRadius.circular(4.0),
                           // splashColor: ,
-                          onTap: () {},
+                          onTap: () {
+                            _cartProvider
+                                .incrementItemByOne(widget.cartItem.id);
+                          },
                           child: Container(
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Icon(
-                                Icons.delete,
+                                AppIcons.plus,
                                 color: Colors.green,
                                 size: 22,
                               ),

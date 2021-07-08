@@ -9,7 +9,7 @@ class CartEmpty extends StatelessWidget {
         Container(
           margin: EdgeInsets.only(top: 80),
           width: double.infinity,
-          height: MediaQuery.of(context).size.height * 0.4,
+          height: MediaQuery.of(context).size.height * 0.3,
           decoration: BoxDecoration(
               image: DecorationImage(
                   fit: BoxFit.fitHeight,
@@ -39,7 +39,7 @@ class CartEmpty extends StatelessWidget {
         ),
         Container(
           width: MediaQuery.of(context).size.width * 0.9,
-          height: MediaQuery.of(context).size.height * 0.06,
+          //height: MediaQuery.of(context).size.height * 0.06,
           child: ElevatedButton(
             onPressed: () {},
             child: Text(

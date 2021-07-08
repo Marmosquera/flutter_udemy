@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:udemy_course/screens/product_detail.dart';
+import 'package:udemy_course/consts/app_icons.dart';
+import '/providers/cart_provider.dart';
+import '/screens/product_detail.dart';
 import '/models/product.dart';
 
 class PopularProducts extends StatelessWidget {
@@ -9,6 +11,7 @@ class PopularProducts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _product = Provider.of<Product>(context);
+    final _cartProvider = Provider.of<CartProvider>(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -105,12 +108,19 @@ class PopularProducts extends StatelessWidget {
                             child: Material(
                               color: Colors.transparent,
                               child: InkWell(
-                                onTap: () {},
+                                onTap: _cartProvider.containsItem(_product)
+                                    ? () {}
+                                    : () {
+                                        _cartProvider
+                                            .addProductToCart(_product);
+                                      },
                                 borderRadius: BorderRadius.circular(30.0),
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Icon(
-                                    Icons.check_box,
+                                    _cartProvider.containsItem(_product)
+                                        ? AppIcons.checkAll
+                                        : AppIcons.cartPlus,
                                     size: 25,
                                     color: Colors.black,
                                   ),

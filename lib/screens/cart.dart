@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '/consts/app_icons.dart';
+import '/providers/cart_provider.dart';
 import '/widgets/cart_empty.dart';
 import '/widgets/cart_full.dart';
 
@@ -7,31 +10,39 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List products = [];
-    return products.isNotEmpty
-        ? Scaffold(body: CartEmpty())
+    final _cartProvider = Provider.of<CartProvider>(context);
+    return _cartProvider.cartItems.isEmpty
+        ? Scaffold(
+            appBar: AppBar(
+              title: Text('Empty Cart'),
+            ),
+            body: CartEmpty())
         : Scaffold(
             appBar: AppBar(
-              title: Text('Cart Items Count'),
+              title: Text('Cart (${_cartProvider.cartItems.length})'),
               actions: [
                 IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.delete),
+                  onPressed: () {
+                    _cartProvider.clearCart();
+                  },
+                  icon: Icon(AppIcons.delete),
                 )
               ],
             ),
-            bottomSheet: checkoutSection(context),
+            bottomSheet: checkoutSection(context, _cartProvider.totalAmount),
             body: Container(
               margin: EdgeInsets.only(bottom: 60),
               child: ListView.builder(
-                  itemCount: 5,
+                  itemCount: _cartProvider.cartItems.length,
                   itemBuilder: (BuildContext ctx, int index) {
-                    return CartFull();
+                    return CartFull(
+                        cartItem:
+                            _cartProvider.cartItems.values.toList()[index]);
                   }),
             ));
   }
 
-  Widget checkoutSection(BuildContext ctx) {
+  Widget checkoutSection(BuildContext ctx, double subtotal) {
     return Container(
         decoration: BoxDecoration(
           border: Border(
@@ -75,7 +86,7 @@ class CartScreen extends StatelessWidget {
                     fontWeight: FontWeight.w600),
               ),
               Text(
-                'US \$179.0',
+                'US \$${subtotal.toStringAsFixed(3)}',
                 //textAlign: TextAlign.center,
                 style: TextStyle(
                     color: Colors.blue,
