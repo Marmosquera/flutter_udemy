@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:badges/badges.dart';
+
 import '/providers/cart_provider.dart';
 import '/providers/products_provider.dart';
 import '/consts/app_colors.dart';
@@ -248,24 +250,27 @@ class _ProductDetailState extends State<ProductDetail> {
                       TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
                 ),
                 actions: <Widget>[
-                  IconButton(
-                    icon: Icon(
-                      AppIcons.wishlist,
-                      color: AppColors.favColor,
+                  Badge(
+                    badgeColor: AppColors.cartBadgeColor,
+                    animationType: BadgeAnimationType.slide,
+                    toAnimate: true,
+                    position: BadgePosition.topEnd(top: 5, end: 7),
+                    badgeContent: Text(
+                      '0', //favs.getFavsItems.length.toString(),
+                      style: TextStyle(color: Colors.white),
                     ),
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(WishlistScreen.routeName);
-                    },
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      AppIcons.cart,
-                      color: AppColors.cartColor,
+                    child: IconButton(
+                      icon: Icon(
+                        AppIcons.wishlist,
+                        color: AppColors.favColor,
+                      ),
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed(WishlistScreen.routeName);
+                      },
                     ),
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(CartScreen.routeName);
-                    },
                   ),
+                  _CartButton(),
                 ]),
           ),
           Align(
@@ -336,7 +341,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       child: Center(
                         child: Icon(
                           AppIcons.wishlist,
-                          color: AppColors.white,
+                          color: AppColors.favBadgeColor,
                         ),
                       ),
                     ),
@@ -372,5 +377,35 @@ class _ProductDetailState extends State<ProductDetail> {
         ],
       ),
     );
+  }
+}
+
+class _CartButton extends StatelessWidget {
+  const _CartButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<CartProvider>(
+        builder: (_, cartProvider, ch) => Badge(
+              badgeColor: AppColors.cartBadgeColor,
+              animationType: BadgeAnimationType.slide,
+              toAnimate: true,
+              position: BadgePosition.topEnd(top: 5, end: 7),
+              badgeContent: Text(
+                cartProvider.cartItems.length.toString(),
+                style: TextStyle(color: Colors.white),
+              ),
+              child: IconButton(
+                icon: Icon(
+                  AppIcons.cart,
+                  color: AppColors.cartColor,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pushNamed(CartScreen.routeName);
+                },
+              ),
+            ));
   }
 }

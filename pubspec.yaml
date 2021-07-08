@@ -29,6 +29,7 @@ dependencies:
   backdrop: ^0.6.2
   carousel_pro_nullsafety: ^1.0.2
   flutter_card_swipper: ^0.4.0
+  badges: ^2.0.1
   cupertino_icons: ^1.0.2
   flutter_feather_icons: ^2.0.0+1
 

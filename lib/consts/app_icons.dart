@@ -7,7 +7,7 @@ class AppIcons {
   static IconData search = Icons.search;
   static IconData user = Icons.verified_user;
   static IconData cart = FeatherIcons.shoppingCart;
-  static IconData wishlist = Icons.wifi_sharp;
+  static IconData wishlist = FeatherIcons.heart;
   static IconData delete = Icons.delete;
 
   static IconData check = FeatherIcons.check;

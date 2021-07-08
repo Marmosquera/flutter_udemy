@@ -1,11 +1,15 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '/screens/cart.dart';
 import '/screens/feeds.dart';
 import '/screens/home.dart';
 import '/screens/search.dart';
 import '/screens/user.dart';
+import 'consts/app_colors.dart';
 import 'consts/app_icons.dart';
+import 'providers/cart_provider.dart';
 
 class BottomBarScreen extends StatefulWidget {
   static const routeName = '/BottomBarScreen';
@@ -75,7 +79,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
                 label: 'Search',
               ),
               BottomNavigationBarItem(
-                icon: Icon(AppIcons.cart),
+                icon: cartIcon(), //Icon(AppIcons.cart),
                 tooltip: 'Cart',
                 label: 'Cart',
               ),
@@ -96,6 +100,22 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
           elevation: 5,
           child: (Icon(AppIcons.search)),
           onPressed: () => _selectedPage(2)),
+    );
+  }
+
+  Widget cartIcon() {
+    return Consumer<CartProvider>(
+      builder: (_, cartProvider, ch) => Badge(
+        badgeColor: AppColors.cartBadgeColor,
+        animationType: BadgeAnimationType.fade,
+        toAnimate: true,
+        position: BadgePosition.topEnd(),
+        badgeContent: Text(
+          cartProvider.cartItems.length.toString(),
+          style: TextStyle(color: Colors.white),
+        ),
+        child: Icon(AppIcons.cart),
+      ),
     );
   }
 }
