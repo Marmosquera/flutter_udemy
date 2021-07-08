@@ -6,13 +6,14 @@ class AppIcons {
   static IconData rss = Icons.rss_feed;
   static IconData search = Icons.search;
   static IconData user = Icons.verified_user;
-  static IconData cart = Icons.shopping_bag;
+  static IconData cart = FeatherIcons.shoppingCart;
   static IconData wishlist = Icons.wifi_sharp;
   static IconData delete = Icons.delete;
 
-  static IconData checkAll = FeatherIcons.check;
-  static IconData cartPlus = Icons.plus_one;
+  static IconData check = FeatherIcons.check;
 
   static IconData plus = FeatherIcons.plus;
   static IconData minus = FeatherIcons.minus;
+
+  static IconData alert = FeatherIcons.alertCircle;
 }

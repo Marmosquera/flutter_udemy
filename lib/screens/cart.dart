@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:udemy_course/widgets/app_alert_dialog.dart';
 import '/consts/app_icons.dart';
 import '/providers/cart_provider.dart';
 import '/widgets/cart_empty.dart';
@@ -23,7 +24,12 @@ class CartScreen extends StatelessWidget {
               actions: [
                 IconButton(
                   onPressed: () {
-                    _cartProvider.clearCart();
+                    AppDialogs.showAlert(
+                        context,
+                        'Clear cart',
+                        'All products will be removed from cart',
+                        () {},
+                        () => _cartProvider.clearCart());
                   },
                   icon: Icon(AppIcons.delete),
                 )

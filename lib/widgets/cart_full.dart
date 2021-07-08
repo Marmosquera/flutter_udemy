@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:udemy_course/widgets/app_alert_dialog.dart';
 import '/providers/cart_provider.dart';
 import '/consts/app_icons.dart';
 import '/models/cart_item.dart';
@@ -61,7 +62,13 @@ class _CartFullState extends State<CartFull> {
                           borderRadius: BorderRadius.circular(32.0),
                           // splashColor: ,
                           onTap: () {
-                            _cartProvider.removeItemById(widget.cartItem.id);
+                            AppDialogs.showAlert(
+                                context,
+                                'Remove product',
+                                'Product will be removed from cart',
+                                () {},
+                                () => _cartProvider
+                                    .removeItemById(widget.cartItem.id));
                           },
                           child: Container(
                             height: 50,

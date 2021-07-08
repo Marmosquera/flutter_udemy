@@ -119,8 +119,8 @@ class PopularProducts extends StatelessWidget {
                                   padding: const EdgeInsets.all(8.0),
                                   child: Icon(
                                     _cartProvider.containsItem(_product)
-                                        ? AppIcons.checkAll
-                                        : AppIcons.cartPlus,
+                                        ? AppIcons.check
+                                        : AppIcons.cart,
                                     size: 25,
                                     color: Colors.black,
                                   ),
