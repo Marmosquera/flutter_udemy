@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:udemy_course/providers/app_theme_provider.dart';
-import 'package:udemy_course/screens/feeds.dart';
 
+import 'providers/app_theme_provider.dart';
+import 'providers/favorite_provider.dart';
+import 'screens/feeds.dart';
 import 'bottom_bar.dart';
 import 'consts/app_styles.dart';
 import 'providers/cart_provider.dart';
@@ -39,7 +40,8 @@ class _MyAppState extends State<MyApp> {
             return themeChangeProvider;
           }),
           ChangeNotifierProvider(create: (_) => ProductsProvider()),
-          ChangeNotifierProvider(create: (_) => CartProvider())
+          ChangeNotifierProvider(create: (_) => CartProvider()),
+          ChangeNotifierProvider(create: (_) => FavoritesProvider())
         ],
         child: Consumer<AppThemeProvider>(builder: (context, themeData, child) {
           return MaterialApp(

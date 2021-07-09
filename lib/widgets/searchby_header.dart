@@ -1,4 +1,5 @@
 import 'package:udemy_course/providers/cart_provider.dart';
+import 'package:udemy_course/providers/favorite_provider.dart';
 import 'package:udemy_course/screens/user.dart';
 
 import '/consts/app_colors.dart';
@@ -61,12 +62,12 @@ class SearchByHeader extends SliverPersistentHeaderDelegate {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Consumer<CartProvider>(
+                Consumer<FavoritesProvider>(
                   builder: (_, favs, ch) => Badge(
                     badgeColor: AppColors.favBadgeColor,
                     position: BadgePosition.topEnd(top: 5, end: 7),
                     badgeContent: Text(
-                      favs.cartItems.length.toString(),
+                      favs.favoriteItems.length.toString(),
                       style: TextStyle(color: AppColors.white),
                     ),
                     child: IconButton(

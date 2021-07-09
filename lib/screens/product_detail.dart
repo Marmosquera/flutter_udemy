@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:badges/badges.dart';
+import 'package:udemy_course/providers/favorite_provider.dart';
 
 import '/providers/cart_provider.dart';
 import '/providers/products_provider.dart';
@@ -24,6 +26,7 @@ class _ProductDetailState extends State<ProductDetail> {
   Widget build(BuildContext context) {
     final _productsProvider = Provider.of<ProductsProvider>(context);
     final _cartProvider = Provider.of<CartProvider>(context);
+    final _favsProvider = Provider.of<FavoritesProvider>(context);
 
     final _productId = ModalRoute.of(context)!.settings.arguments as String;
     final _product = _productsProvider.products
@@ -250,26 +253,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
                 ),
                 actions: <Widget>[
-                  Badge(
-                    badgeColor: AppColors.cartBadgeColor,
-                    animationType: BadgeAnimationType.slide,
-                    toAnimate: true,
-                    position: BadgePosition.topEnd(top: 5, end: 7),
-                    badgeContent: Text(
-                      '0', //favs.getFavsItems.length.toString(),
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    child: IconButton(
-                      icon: Icon(
-                        AppIcons.wishlist,
-                        color: AppColors.favColor,
-                      ),
-                      onPressed: () {
-                        Navigator.of(context)
-                            .pushNamed(WishlistScreen.routeName);
-                      },
-                    ),
-                  ),
+                  _WishButton(),
                   _CartButton(),
                 ]),
           ),
@@ -337,11 +321,15 @@ class _ProductDetailState extends State<ProductDetail> {
                     height: 50,
                     child: InkWell(
                       splashColor: AppColors.favColor,
-                      onTap: () {},
+                      onTap: () =>
+                          _favsProvider.addAndRemoveFromFavorites(_product),
                       child: Center(
                         child: Icon(
                           AppIcons.wishlist,
-                          color: AppColors.favBadgeColor,
+                          color: _favsProvider.favoriteItems
+                                  .containsKey(_product.id)
+                              ? Colors.red
+                              : AppColors.favBadgeColor,
                         ),
                       ),
                     ),
@@ -375,6 +363,37 @@ class _ProductDetailState extends State<ProductDetail> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _WishButton extends StatelessWidget {
+  const _WishButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<FavoritesProvider>(
+      builder: (_, favs, ch) => Badge(
+        badgeColor: AppColors.cartBadgeColor,
+        animationType: BadgeAnimationType.slide,
+        toAnimate: true,
+        position: BadgePosition.topEnd(top: 5, end: 7),
+        badgeContent: Text(
+          favs.favoriteItems.length.toString(),
+          style: TextStyle(color: Colors.white),
+        ),
+        child: IconButton(
+          icon: Icon(
+            AppIcons.wishlist,
+            color: AppColors.favColor,
+          ),
+          onPressed: () {
+            Navigator.of(context).pushNamed(WishlistScreen.routeName);
+          },
+        ),
       ),
     );
   }
