@@ -5,7 +5,7 @@ class AppIcons {
   static IconData home = Icons.home;
   static IconData rss = Icons.rss_feed;
   static IconData search = Icons.search;
-  static IconData user = Icons.verified_user;
+  static IconData user = FeatherIcons.user;
   static IconData cart = FeatherIcons.shoppingCart;
   static IconData wishlist = FeatherIcons.heart;
   static IconData delete = Icons.delete;
@@ -16,4 +16,5 @@ class AppIcons {
   static IconData minus = FeatherIcons.minus;
 
   static IconData alert = FeatherIcons.alertCircle;
+  static IconData userPlus = FeatherIcons.userPlus;
 }

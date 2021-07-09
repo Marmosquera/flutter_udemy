@@ -1,5 +1,6 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:badges/badges.dart';
 import 'package:udemy_course/providers/favorite_provider.dart';
@@ -31,6 +32,8 @@ class _ProductDetailState extends State<ProductDetail> {
     final _productId = ModalRoute.of(context)!.settings.arguments as String;
     final _product = _productsProvider.products
         .firstWhere((element) => element.id == _productId);
+
+    final productsList = _productsProvider.products;
 
     return Scaffold(
       body: Stack(
@@ -225,16 +228,31 @@ class _ProductDetailState extends State<ProductDetail> {
                   ),
                 ),
                 Container(
+                  color: Theme.of(context).scaffoldBackgroundColor,
                   margin: EdgeInsets.only(bottom: 30),
                   width: double.infinity,
-                  height: 300,
+                  height: 420,
                   child: ListView.builder(
+                      itemCount: min(productsList.length, 7),
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (BuildContext ctx, int index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: ChangeNotifierProvider.value(
+                            value: productsList[index],
+                            child: FeedsProduct(),
+                          ),
+                        );
+                      })
+
+                  /*ListView.builder(
                     itemCount: 7,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (BuildContext ctx, int index) {
                       return FeedsProduct();
                     },
-                  ),
+                  )*/
+                  ,
                 ),
               ],
             ),

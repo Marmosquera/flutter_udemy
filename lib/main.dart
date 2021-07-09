@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 
 import 'providers/app_theme_provider.dart';
 import 'providers/favorite_provider.dart';
+import 'screens/auth/login.dart';
+import 'screens/auth/sign_up.dart';
 import 'screens/feeds.dart';
 import 'bottom_bar.dart';
 import 'consts/app_styles.dart';
@@ -11,6 +13,7 @@ import 'providers/products_provider.dart';
 import 'screens/brands_navigation_rail.dart';
 import 'screens/cart.dart';
 import 'screens/categories_feeds.dart';
+import 'screens/landing_page.dart';
 import 'screens/product_detail.dart';
 import 'screens/wishlist.dart';
 
@@ -47,7 +50,7 @@ class _MyAppState extends State<MyApp> {
           return MaterialApp(
             title: 'Flutter Demo',
             theme: AppStyles.themeData(themeChangeProvider.appTheme, context),
-            home: BottomBarScreen(),
+            home: LandingPage(),
             routes: {
               //'/': (ctx) => BottomBarScreen(), //LandingPage(),
               BrandNavigationRailScreen.routeName: (ctx) =>
@@ -57,9 +60,9 @@ class _MyAppState extends State<MyApp> {
               WishlistScreen.routeName: (ctx) => WishlistScreen(),
               ProductDetail.routeName: (ctx) => ProductDetail(),
               CategoriesFeedsScreen.routeName: (ctx) => CategoriesFeedsScreen(),
-              //LoginScreen.routeName: (ctx) => LoginScreen(),
-              //SignUpScreen.routeName: (ctx) => SignUpScreen(),
-              //BottomBarScreen.routeName: (ctx) => BottomBarScreen(),
+              LoginScreen.routeName: (ctx) => LoginScreen(),
+              SignUpScreen.routeName: (ctx) => SignUpScreen(),
+              BottomBarScreen.routeName: (ctx) => BottomBarScreen(),
               //UploadProductForm.routeName: (ctx) => UploadProductForm(),
             },
           );
