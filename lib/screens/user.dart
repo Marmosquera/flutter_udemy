@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:udemy_course/consts/app_colors.dart';
 import 'package:udemy_course/providers/app_theme_provider.dart';
 import 'package:udemy_course/screens/cart.dart';
+import 'package:udemy_course/screens/landing_page.dart';
 import 'package:udemy_course/screens/wishlist.dart';
 
 class UserScreen extends StatefulWidget {
@@ -170,8 +171,14 @@ class _UserScreenState extends State<UserScreen> {
                   'Dark Theme',
                 ),
               ),
-              userListTile(context, 'Logout', '', Icons.exit_to_app_rounded,
-                  null, () {}),
+              userListTile(
+                  context,
+                  'Logout',
+                  '',
+                  Icons.exit_to_app_rounded,
+                  null,
+                  () => Navigator.pushReplacementNamed(
+                      context, LandingPage.routeName)),
             ],
           ),
         ),

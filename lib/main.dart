@@ -72,6 +72,7 @@ class _MyAppState extends State<MyApp> {
               LoginScreen.routeName: (ctx) => LoginScreen(),
               SignUpScreen.routeName: (ctx) => SignUpScreen(),
               BottomBarScreen.routeName: (ctx) => BottomBarScreen(),
+              LandingPage.routeName: (ctx) => LandingPage(),
               //UploadProductForm.routeName: (ctx) => UploadProductForm(),
             },
           );

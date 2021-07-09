@@ -1,3 +1,5 @@
+import 'package:udemy_course/bottom_bar.dart';
+
 import '/consts/app_icons.dart';
 import '/consts/app_colors.dart';
 import '/screens/auth/login.dart';
@@ -6,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class LandingPage extends StatefulWidget {
+  static const routeName = '/LandingPage';
+
   @override
   _LandingPageState createState() => _LandingPageState();
 }
@@ -201,18 +205,21 @@ class _LandingPageState extends State<LandingPage>
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              OutlineButton(
+              OutlinedButton(
                 onPressed: () {},
-                shape: StadiumBorder(),
-                highlightedBorderColor: Colors.red.shade200,
-                borderSide: BorderSide(width: 2, color: Colors.red),
+                style: OutlinedButton.styleFrom(
+                  shape: StadiumBorder(),
+                  side: BorderSide(width: 2, color: Colors.red),
+                ),
                 child: Text('Google +'),
               ),
-              OutlineButton(
-                onPressed: () {},
-                shape: StadiumBorder(),
-                highlightedBorderColor: Colors.deepPurple.shade200,
-                borderSide: BorderSide(width: 2, color: Colors.deepPurple),
+              OutlinedButton(
+                onPressed: () => Navigator.pushReplacementNamed(
+                    context, BottomBarScreen.routeName),
+                style: OutlinedButton.styleFrom(
+                  shape: StadiumBorder(),
+                  side: BorderSide(width: 2, color: Colors.deepPurple),
+                ),
                 child: Text('Sign in as a guest'),
               ),
             ],
