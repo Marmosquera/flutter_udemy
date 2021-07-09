@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +21,12 @@ import 'screens/product_detail.dart';
 import 'screens/wishlist.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+    DesktopWindow.setWindowSize(Size(400, 700));
+    //DesktopWindow.setMinWindowSize(Size(400, 400));
+    //DesktopWindow.setMaxWindowSize(Size(800, 800));
+  }
   runApp(MyApp());
 }
 
