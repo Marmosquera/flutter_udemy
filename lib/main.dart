@@ -1,8 +1,11 @@
 import 'dart:io';
 
 import 'package:desktop_window/desktop_window.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:udemy_course/screens/user.dart';
+import 'package:udemy_course/screens/user_state.dart';
 
 import 'providers/app_theme_provider.dart';
 import 'providers/favorite_provider.dart';
@@ -44,39 +47,65 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) {
-            return themeChangeProvider;
-          }),
-          ChangeNotifierProvider(create: (_) => ProductsProvider()),
-          ChangeNotifierProvider(create: (_) => CartProvider()),
-          ChangeNotifierProvider(create: (_) => FavoritesProvider())
-        ],
-        child: Consumer<AppThemeProvider>(builder: (context, themeData, child) {
-          return MaterialApp(
-            title: 'Flutter Demo',
-            theme: AppStyles.themeData(themeChangeProvider.appTheme, context),
-            home: LandingPage(),
-            routes: {
-              //'/': (ctx) => BottomBarScreen(), //LandingPage(),
-              BrandNavigationRailScreen.routeName: (ctx) =>
-                  BrandNavigationRailScreen(),
-              CartScreen.routeName: (ctx) => CartScreen(),
-              FeedsScreen.routeName: (ctx) => FeedsScreen(showTitle: true),
-              WishlistScreen.routeName: (ctx) => WishlistScreen(),
-              ProductDetail.routeName: (ctx) => ProductDetail(),
-              CategoriesFeedsScreen.routeName: (ctx) => CategoriesFeedsScreen(),
-              LoginScreen.routeName: (ctx) => LoginScreen(),
-              SignUpScreen.routeName: (ctx) => SignUpScreen(),
-              BottomBarScreen.routeName: (ctx) => BottomBarScreen(),
-              LandingPage.routeName: (ctx) => LandingPage(),
-              //UploadProductForm.routeName: (ctx) => UploadProductForm(),
-            },
-          );
-        }));
+    return FutureBuilder(
+        future: _initialization,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return MaterialApp(
+              home: Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+            );
+          } else if (snapshot.hasError) {
+            MaterialApp(
+              home: Scaffold(
+                body: Center(
+                  child: Text('Error occured'),
+                ),
+              ),
+            );
+          }
+
+          return MultiProvider(
+              providers: [
+                ChangeNotifierProvider(create: (_) => themeChangeProvider),
+                ChangeNotifierProvider(create: (_) => ProductsProvider()),
+                ChangeNotifierProvider(create: (_) => CartProvider()),
+                ChangeNotifierProvider(create: (_) => FavoritesProvider())
+              ],
+              child: Consumer<AppThemeProvider>(
+                  builder: (context, themeData, child) {
+                return MaterialApp(
+                  title: 'Flutter Demo',
+                  theme: AppStyles.themeData(
+                      themeChangeProvider.appTheme, context),
+                  home: UserState(),
+                  routes: {
+                    //'/': (ctx) => BottomBarScreen(), //LandingPage(),
+                    BrandNavigationRailScreen.routeName: (ctx) =>
+                        BrandNavigationRailScreen(),
+                    CartScreen.routeName: (ctx) => CartScreen(),
+                    FeedsScreen.routeName: (ctx) =>
+                        FeedsScreen(showTitle: true),
+                    WishlistScreen.routeName: (ctx) => WishlistScreen(),
+                    ProductDetail.routeName: (ctx) => ProductDetail(),
+                    CategoriesFeedsScreen.routeName: (ctx) =>
+                        CategoriesFeedsScreen(),
+                    LoginScreen.routeName: (ctx) => LoginScreen(),
+                    SignUpScreen.routeName: (ctx) => SignUpScreen(),
+                    BottomBarScreen.routeName: (ctx) => BottomBarScreen(),
+                    LandingPage.routeName: (ctx) => LandingPage(),
+                    //UploadProductForm.routeName: (ctx) => UploadProductForm(),
+                  },
+                );
+              }));
+        });
   }
 
   void getCurrentAppTheme() async {

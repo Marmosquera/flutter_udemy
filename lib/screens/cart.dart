@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:udemy_course/widgets/app_alert_dialog.dart';
+import 'package:udemy_course/widgets/app_dialogs.dart';
 import '/consts/app_icons.dart';
 import '/providers/cart_provider.dart';
 import '/widgets/cart_empty.dart';

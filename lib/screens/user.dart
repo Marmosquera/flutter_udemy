@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:list_tile_switch/list_tile_switch.dart';
 import 'package:provider/provider.dart';
@@ -6,6 +7,7 @@ import 'package:udemy_course/providers/app_theme_provider.dart';
 import 'package:udemy_course/screens/cart.dart';
 import 'package:udemy_course/screens/landing_page.dart';
 import 'package:udemy_course/screens/wishlist.dart';
+import 'package:udemy_course/widgets/app_dialogs.dart';
 
 class UserScreen extends StatefulWidget {
   @override
@@ -172,13 +174,18 @@ class _UserScreenState extends State<UserScreen> {
                 ),
               ),
               userListTile(
-                  context,
-                  'Logout',
-                  '',
-                  Icons.exit_to_app_rounded,
-                  null,
-                  () => Navigator.pushReplacementNamed(
-                      context, LandingPage.routeName)),
+                context,
+                'Logout',
+                '',
+                Icons.exit_to_app_rounded,
+                null,
+                () async => await AppDialogs.showAlert(
+                    context,
+                    'Sign Out',
+                    'Do you really want to sign out?',
+                    () {},
+                    () async => await FirebaseAuth.instance.signOut()),
+              )
             ],
           ),
         ),

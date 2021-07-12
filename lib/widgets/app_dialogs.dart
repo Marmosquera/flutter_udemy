@@ -37,4 +37,34 @@ class AppDialogs {
           );
         });
   }
+
+  static Future<void> showError(
+      BuildContext context, String title, String subtitle, VoidCallback fncOk) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext ctx) {
+          return AlertDialog(
+            title: Row(
+              children: [
+                Padding(
+                    padding: const EdgeInsets.only(right: 6.0),
+                    child: Icon(AppIcons.error)),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(title),
+                )
+              ],
+            ),
+            content: Text(subtitle),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    fncOk();
+                    Navigator.pop(context);
+                  },
+                  child: Text('Ok')),
+            ],
+          );
+        });
+  }
 }
