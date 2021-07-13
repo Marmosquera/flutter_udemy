@@ -4,7 +4,6 @@ import 'package:desktop_window/desktop_window.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:udemy_course/screens/user.dart';
 import 'package:udemy_course/screens/user_state.dart';
 
 import 'providers/app_theme_provider.dart';

@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:udemy_course/widgets/app_dialogs.dart';
 import '/consts/app_icons.dart';
@@ -38,6 +40,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
     super.dispose();
   }
 
+  void _saveUserToFirestore(value) async {
+    final _uid = _auth.currentUser!.uid;
+    FirebaseFirestore.instance.collection('users').doc(_uid).set({
+      'id': _uid,
+      'name': _fullName,
+      'email': _emailAddress,
+      'phoneNumber': _phoneNumber,
+      'imageUrl': '',
+      'joinedAt': DateTime.now().toUtc().millisecondsSinceEpoch
+    });
+  }
+
   void _submitForm() async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
@@ -51,6 +65,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             .createUserWithEmailAndPassword(
                 email: _emailAddress.toLowerCase().trim(),
                 password: _password.trim())
+            .then(_saveUserToFirestore)
             .then((value) =>
                 Navigator.canPop(context) ? Navigator.pop(context) : null);
       } catch (error) {
@@ -353,6 +368,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               }
                               return null;
                             },
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
                             textInputAction: TextInputAction.next,
                             onEditingComplete: _submitForm,
                             keyboardType: TextInputType.phone,

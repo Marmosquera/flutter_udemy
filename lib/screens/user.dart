@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:udemy_course/consts/app_colors.dart';
 import 'package:udemy_course/providers/app_theme_provider.dart';
 import 'package:udemy_course/screens/cart.dart';
-import 'package:udemy_course/screens/landing_page.dart';
 import 'package:udemy_course/screens/wishlist.dart';
 import 'package:udemy_course/widgets/app_dialogs.dart';
 
