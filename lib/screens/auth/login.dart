@@ -1,6 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:udemy_course/widgets/app_dialogs.dart';
+import 'package:provider/provider.dart';
+import '/providers/user_provider.dart';
+import '/widgets/app_dialogs.dart';
 import '/consts/app_icons.dart';
 import '/consts/app_colors.dart';
 
@@ -21,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  late UserProvider _userProvider;
 
   @override
   void dispose() {
@@ -38,10 +39,9 @@ class _LoginScreenState extends State<LoginScreen> {
       });
       _formKey.currentState!.save();
       try {
-        await _auth
+        await _userProvider
             .signInWithEmailAndPassword(
-                email: _emailAddress.toLowerCase().trim(),
-                password: _password.trim())
+                _emailAddress.toLowerCase().trim(), _password.trim())
             .then((value) =>
                 Navigator.canPop(context) ? Navigator.pop(context) : null);
       } catch (error) {
@@ -57,6 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    _userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(

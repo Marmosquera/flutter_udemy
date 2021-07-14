@@ -1,11 +1,12 @@
 import 'dart:io';
 
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:udemy_course/widgets/app_dialogs.dart';
+import 'package:provider/provider.dart';
+import 'package:udemy_course/models/user_login_data.dart';
+import '/providers/user_provider.dart';
+import '/widgets/app_dialogs.dart';
 import '/consts/app_icons.dart';
 import '/consts/app_colors.dart';
 import 'package:wave/config.dart';
@@ -22,15 +23,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _phoneNumberFocusNode = FocusNode();
   bool _obscureText = true;
-  String _emailAddress = '';
+
+  late UserLoginData _userLogin = UserLoginData();
   String _password = '';
+
+  /*String _emailAddress = '';
   String _fullName = '';
   late int _phoneNumber;
+  */
   File? _pickedImage;
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  late UserProvider _userProvider;
 
   @override
   void dispose() {
@@ -38,18 +43,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     _emailFocusNode.dispose();
     _phoneNumberFocusNode.dispose();
     super.dispose();
-  }
-
-  void _saveUserToFirestore(value) async {
-    final _uid = _auth.currentUser!.uid;
-    FirebaseFirestore.instance.collection('users').doc(_uid).set({
-      'id': _uid,
-      'name': _fullName,
-      'email': _emailAddress,
-      'phoneNumber': _phoneNumber,
-      'imageUrl': '',
-      'joinedAt': DateTime.now().toUtc().millisecondsSinceEpoch
-    });
   }
 
   void _submitForm() async {
@@ -61,11 +54,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       });
       _formKey.currentState!.save();
       try {
-        await _auth
-            .createUserWithEmailAndPassword(
-                email: _emailAddress.toLowerCase().trim(),
-                password: _password.trim())
-            .then(_saveUserToFirestore)
+        await _userProvider
+            .createUserWithEmailAndPassword(_userLogin, _password.trim())
             .then((value) =>
                 Navigator.canPop(context) ? Navigator.pop(context) : null);
       } catch (error) {
@@ -75,7 +65,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
       setState(() {
         _isLoading = false;
       });
-      //Navigator.pushReplacementNamed(context, BottomBarScreen.routeName);
     }
   }
 
@@ -108,6 +97,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    _userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(
@@ -287,7 +277,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 labelText: 'Full name',
                                 fillColor: Theme.of(context).backgroundColor),
                             onSaved: (value) {
-                              _fullName = value ?? '';
+                              _userLogin.fullName = value ?? '';
                             },
                           ),
                         ),
@@ -315,7 +305,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 labelText: 'Email Address',
                                 fillColor: Theme.of(context).backgroundColor),
                             onSaved: (value) {
-                              _emailAddress = value ?? '';
+                              _userLogin.email = value ?? '';
                             },
                           ),
                         ),
@@ -381,7 +371,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 labelText: 'Phone number',
                                 fillColor: Theme.of(context).backgroundColor),
                             onSaved: (value) {
-                              _phoneNumber = int.parse(value ?? '0');
+                              _userLogin.phoneNumber = value ?? '';
                             },
                           ),
                         ),

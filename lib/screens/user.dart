@@ -4,6 +4,7 @@ import 'package:list_tile_switch/list_tile_switch.dart';
 import 'package:provider/provider.dart';
 import 'package:udemy_course/consts/app_colors.dart';
 import 'package:udemy_course/providers/app_theme_provider.dart';
+import 'package:udemy_course/providers/user_provider.dart';
 import 'package:udemy_course/screens/cart.dart';
 import 'package:udemy_course/screens/wishlist.dart';
 import 'package:udemy_course/widgets/app_dialogs.dart';
@@ -29,7 +30,7 @@ class _UserScreenState extends State<UserScreen> {
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<AppThemeProvider>(context);
-
+    final _userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
         body: Center(
             child: CustomScrollView(
@@ -140,12 +141,24 @@ class _UserScreenState extends State<UserScreen> {
                 thickness: 1,
                 color: Colors.grey,
               ),
-              userListTile(context, 'Email', 'subt', Icons.email, null, () {}),
-              userListTile(context, 'Phone', 'subt', Icons.phone, null, () {}),
+              userListTile(context, 'Email', _userProvider.userLoggedin.email,
+                  Icons.email, null, () {}),
+              userListTile(
+                  context,
+                  'Phone',
+                  _userProvider.userLoggedin.phoneNumber,
+                  Icons.phone,
+                  null,
+                  () {}),
               userListTile(context, 'Shipping', 'subt', Icons.local_shipping,
                   null, () {}),
-              userListTile(context, 'Joined date', 'date', Icons.watch_later,
-                  null, () {}),
+              userListTile(
+                  context,
+                  'Joined date',
+                  _userProvider.userLoggedin.joinedAt.toString(),
+                  Icons.watch_later,
+                  null,
+                  () {}),
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Text(

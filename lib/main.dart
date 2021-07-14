@@ -8,6 +8,7 @@ import 'package:udemy_course/screens/user_state.dart';
 
 import 'providers/app_theme_provider.dart';
 import 'providers/favorite_provider.dart';
+import 'providers/user_provider.dart';
 import 'screens/auth/login.dart';
 import 'screens/auth/sign_up.dart';
 import 'screens/feeds.dart';
@@ -46,7 +47,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  final Future<FirebaseApp> _initialization = UserProvider.initializeApp();
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +77,8 @@ class _MyAppState extends State<MyApp> {
                 ChangeNotifierProvider(create: (_) => themeChangeProvider),
                 ChangeNotifierProvider(create: (_) => ProductsProvider()),
                 ChangeNotifierProvider(create: (_) => CartProvider()),
-                ChangeNotifierProvider(create: (_) => FavoritesProvider())
+                ChangeNotifierProvider(create: (_) => FavoritesProvider()),
+                ChangeNotifierProvider(create: (_) => UserProvider())
               ],
               child: Consumer<AppThemeProvider>(
                   builder: (context, themeData, child) {
