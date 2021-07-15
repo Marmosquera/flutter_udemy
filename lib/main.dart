@@ -21,6 +21,7 @@ import 'screens/cart.dart';
 import 'screens/categories_feeds.dart';
 import 'screens/landing_page.dart';
 import 'screens/product_detail.dart';
+import 'screens/upload_product_form.dart';
 import 'screens/wishlist.dart';
 
 void main() {
@@ -102,7 +103,7 @@ class _MyAppState extends State<MyApp> {
                     SignUpScreen.routeName: (ctx) => SignUpScreen(),
                     BottomBarScreen.routeName: (ctx) => BottomBarScreen(),
                     LandingPage.routeName: (ctx) => LandingPage(),
-                    //UploadProductForm.routeName: (ctx) => UploadProductForm(),
+                    UploadProductForm.routeName: (ctx) => UploadProductForm(),
                   },
                 );
               }));

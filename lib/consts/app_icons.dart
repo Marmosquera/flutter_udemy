@@ -18,4 +18,5 @@ class AppIcons {
   static IconData alert = FeatherIcons.alertCircle;
   static IconData userPlus = FeatherIcons.userPlus;
   static IconData error = Icons.error;
+  static IconData upload = FeatherIcons.upload;
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:udemy_course/screens/upload_product_form.dart';
 
 import '/consts/app_icons.dart';
 import '/consts/app_colors.dart';
@@ -126,7 +127,7 @@ class HomeBackLayerMenu extends StatelessWidget {
                 }, 'Wishlist', 2),
                 const SizedBox(height: 10.0),
                 content(context, () {
-                  navigateTo(context, FeedsScreen.routeName);
+                  navigateTo(context, UploadProductForm.routeName);
                 }, 'Upload a new product', 3),
               ],
             ),

@@ -1,7 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:udemy_course/models/product_input.dart';
+import 'package:udemy_course/repositories/product_repository.dart';
 import '/models/product.dart';
 
 class ProductsProvider with ChangeNotifier {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   final List<Product> _products = [
     Product(
         id: 'Samsung1',
@@ -615,5 +620,14 @@ class ProductsProvider with ChangeNotifier {
             element.title.toLowerCase().contains(searchText.toLowerCase()))
         .toList();
     return _searchList;
+  }
+
+  Future<void> saveProduct(ProductInput productInput) async {
+    final ProductRepository _productRepository = ProductRepository();
+    productInput.imageUrl =
+        await _productRepository.saveProductImage(productInput);
+    productInput.createdAt = DateTime.now();
+    productInput.userId = _auth.currentUser!.uid;
+    await _productRepository.saveProductData(productInput);
   }
 }
