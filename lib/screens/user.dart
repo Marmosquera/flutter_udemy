@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:list_tile_switch/list_tile_switch.dart';
@@ -34,6 +35,13 @@ class _UserScreenState extends State<UserScreen> {
   Widget build(BuildContext context) {
     final themeChange = Provider.of<AppThemeProvider>(context);
     final _userProvider = Provider.of<UserProvider>(context);
+
+    final _userImage = _userProvider.userLoggedin.imageUrl.isEmpty
+        ? DEFAULT_IMAGE
+        : _userProvider.userLoggedin.imageUrl;
+    final _userName = _userProvider.userLoggedin.fullName.isEmpty
+        ? 'Guest'
+        : _userProvider.userLoggedin.fullName;
     return Scaffold(
         body: Center(
             child: CustomScrollView(
@@ -51,71 +59,66 @@ class _UserScreenState extends State<UserScreen> {
               builder: (BuildContext context, BoxConstraints constraints) {
             top = constraints.biggest.height;
             return Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    colors: [AppColors.starterColor, AppColors.endColor],
-                    begin: const FractionalOffset(0.0, 0.0),
-                    end: const FractionalOffset(1.0, 0.0),
-                    stops: [0.0, 1.0],
-                    tileMode: TileMode.clamp),
-              ),
-              child: FlexibleSpaceBar(
-                collapseMode: CollapseMode.parallax,
-                centerTitle: true,
-                title: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    AnimatedOpacity(
-                      duration: Duration(milliseconds: 300),
-                      opacity: top <= 110.0 ? 1.0 : 0,
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 12,
-                          ),
-                          Container(
-                            height: kToolbarHeight / 1.8,
-                            width: kToolbarHeight / 1.8,
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.white,
-                                  blurRadius: 1.0,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      colors: [AppColors.starterColor, AppColors.endColor],
+                      begin: const FractionalOffset(0.0, 0.0),
+                      end: const FractionalOffset(1.0, 0.0),
+                      stops: [0.0, 1.0],
+                      tileMode: TileMode.clamp),
+                ),
+                child: FlexibleSpaceBar(
+                  collapseMode: CollapseMode.parallax,
+                  centerTitle: true,
+                  title: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      AnimatedOpacity(
+                        duration: Duration(milliseconds: 300),
+                        opacity: top <= 110.0 ? 1.0 : 0,
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 12,
+                            ),
+                            Container(
+                              height: kToolbarHeight / 1.8,
+                              width: kToolbarHeight / 1.8,
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.white,
+                                    blurRadius: 1.0,
+                                  ),
+                                ],
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  fit: BoxFit.fill,
+                                  image: NetworkImage(_userImage),
                                 ),
-                              ],
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: NetworkImage(
-                                    _userProvider.userLoggedin.imageUrl == ''
-                                        ? DEFAULT_IMAGE
-                                        : _userProvider.userLoggedin.imageUrl),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            width: 12,
-                          ),
-                          Text(
-                            _userProvider.userLoggedin.fullName == ''
-                                ? 'Guest'
-                                : _userProvider.userLoggedin.fullName,
-                            style:
-                                TextStyle(fontSize: 20.0, color: Colors.white),
-                          ),
-                        ],
+                            SizedBox(
+                              width: 12,
+                            ),
+                            Text(
+                              _userName,
+                              style: TextStyle(
+                                  fontSize: 20.0, color: Colors.white),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                background: Image(
-                  image: NetworkImage(_userProvider.userLoggedin.imageUrl == ''
-                      ? DEFAULT_IMAGE
-                      : _userProvider.userLoggedin.imageUrl),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            );
+                    ],
+                  ),
+                  background: CachedNetworkImage(
+                      imageUrl: _userImage,
+                      placeholder: (context, url) => Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                      fit: BoxFit.cover),
+                ));
           }),
         ),
         SliverToBoxAdapter(
@@ -161,8 +164,8 @@ class _UserScreenState extends State<UserScreen> {
                   Icons.phone,
                   null,
                   () {}),
-              userListTile(context, 'Shipping', 'subt', Icons.local_shipping,
-                  null, () {}),
+              userListTile(
+                  context, 'Shipping', '', Icons.local_shipping, null, () {}),
               userListTile(
                   context,
                   'Joined date',
