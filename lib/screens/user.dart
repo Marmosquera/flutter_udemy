@@ -15,6 +15,9 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
+  static const String DEFAULT_IMAGE =
+      'https://cdn1.vectorstock.com/i/thumb-large/62/60/default-avatar-photo-placeholder-profile-image-vector-21666260.jpg';
+
   late ScrollController _scrollController;
   var top = 0.0;
 
@@ -41,6 +44,9 @@ class _UserScreenState extends State<UserScreen> {
           elevation: 4,
           expandedHeight: 200,
           pinned: true,
+          actions: [
+            IconButton(onPressed: () {}, icon: Icon(Icons.camera_alt_outlined))
+          ],
           flexibleSpace: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
             top = constraints.biggest.height;
@@ -81,7 +87,9 @@ class _UserScreenState extends State<UserScreen> {
                               image: DecorationImage(
                                 fit: BoxFit.fill,
                                 image: NetworkImage(
-                                    'https://cdn1.vectorstock.com/i/thumb-large/62/60/default-avatar-photo-placeholder-profile-image-vector-21666260.jpg'),
+                                    _userProvider.userLoggedin.imageUrl == ''
+                                        ? DEFAULT_IMAGE
+                                        : _userProvider.userLoggedin.imageUrl),
                               ),
                             ),
                           ),
@@ -89,7 +97,9 @@ class _UserScreenState extends State<UserScreen> {
                             width: 12,
                           ),
                           Text(
-                            'Guest',
+                            _userProvider.userLoggedin.fullName == ''
+                                ? 'Guest'
+                                : _userProvider.userLoggedin.fullName,
                             style:
                                 TextStyle(fontSize: 20.0, color: Colors.white),
                           ),
@@ -99,9 +109,10 @@ class _UserScreenState extends State<UserScreen> {
                   ],
                 ),
                 background: Image(
-                  image: NetworkImage(
-                      'https://cdn1.vectorstock.com/i/thumb-large/62/60/default-avatar-photo-placeholder-profile-image-vector-21666260.jpg'),
-                  fit: BoxFit.fill,
+                  image: NetworkImage(_userProvider.userLoggedin.imageUrl == ''
+                      ? DEFAULT_IMAGE
+                      : _userProvider.userLoggedin.imageUrl),
+                  fit: BoxFit.cover,
                 ),
               ),
             );

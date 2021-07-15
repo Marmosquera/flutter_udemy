@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class UserLoginData with ChangeNotifier {
@@ -7,4 +9,7 @@ class UserLoginData with ChangeNotifier {
   String phoneNumber = '';
   String imageUrl = '';
   DateTime? joinedAt;
+
+  String? password;
+  File? pickedImage;
 }

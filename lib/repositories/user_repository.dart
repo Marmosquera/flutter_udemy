@@ -1,14 +1,18 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:udemy_course/models/user_login_data.dart';
 
 class UserRepository {
-  static const THEME_STATUS = 'THEMESSTATUS';
+  static const USERS_COLLECTION = 'users';
+  static const USERS_IMAGES_COLLECTION = 'usersImages';
 
-  int run = 0;
-
-  saveUserData(UserLoginData userData) async =>
-      FirebaseFirestore.instance.collection('users').doc(userData.id).set({
+  saveUserData(UserLoginData userData) async => FirebaseFirestore.instance
+          .collection(USERS_COLLECTION)
+          .doc(userData.id)
+          .set({
         'id': userData.id,
         'name': userData.fullName,
         'email': userData.email,
@@ -18,11 +22,11 @@ class UserRepository {
       });
 
   Future<UserLoginData> getUserData(String id) async {
-    print('$run');
-    run++;
     UserLoginData userData = UserLoginData();
-    final doc =
-        await FirebaseFirestore.instance.collection('users').doc(id).get();
+    final doc = await FirebaseFirestore.instance
+        .collection(USERS_COLLECTION)
+        .doc(id)
+        .get();
     if (doc.exists) {
       userData.id = doc.get('id');
       userData.fullName = doc.get('name');
@@ -33,5 +37,14 @@ class UserRepository {
           DateTime.fromMillisecondsSinceEpoch(doc.get('joinedAt'));
     }
     return userData;
+  }
+
+  Future<String> saveUserImage(UserLoginData userData) async {
+    final ref = FirebaseStorage.instance
+        .ref()
+        .child(USERS_IMAGES_COLLECTION)
+        .child(userData.id + '.jpg');
+    await ref.putFile(userData.pickedImage!);
+    return await ref.getDownloadURL();
   }
 }

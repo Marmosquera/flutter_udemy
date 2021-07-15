@@ -25,13 +25,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool _obscureText = true;
 
   late UserLoginData _userLogin = UserLoginData();
-  String _password = '';
-
-  /*String _emailAddress = '';
-  String _fullName = '';
-  late int _phoneNumber;
-  */
-  File? _pickedImage;
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
 
@@ -54,9 +47,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       });
       _formKey.currentState!.save();
       try {
-        await _userProvider
-            .createUserWithEmailAndPassword(_userLogin, _password.trim())
-            .then((value) =>
+        await _userProvider.createUserWithEmailAndPassword(_userLogin).then(
+            (value) =>
                 Navigator.canPop(context) ? Navigator.pop(context) : null);
       } catch (error) {
         AppDialogs.showError(context, 'Auth Error', error.toString(), () {});
@@ -73,7 +65,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     final pickedImage = await picker.getImage(source: ImageSource.camera);
     final pickedImageFile = File(pickedImage!.path);
     setState(() {
-      _pickedImage = pickedImageFile;
+      _userLogin.pickedImage = pickedImageFile;
     });
     Navigator.pop(context);
   }
@@ -83,14 +75,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
     final pickedImage = await picker.getImage(source: ImageSource.gallery);
     final pickedImageFile = File(pickedImage!.path);
     setState(() {
-      _pickedImage = pickedImageFile;
+      _userLogin.pickedImage = pickedImageFile;
     });
     Navigator.pop(context);
   }
 
   void _remove() {
     setState(() {
-      _pickedImage = null;
+      _userLogin.pickedImage = null;
     });
     Navigator.pop(context);
   }
@@ -142,9 +134,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         child: CircleAvatar(
                           radius: 65,
                           backgroundColor: AppColors.gradiendFEnd,
-                          backgroundImage: _pickedImage == null
+                          backgroundImage: _userLogin.pickedImage == null
                               ? null
-                              : FileImage(_pickedImage!),
+                              : FileImage(_userLogin.pickedImage!),
                         ),
                       ),
                     ),
@@ -305,7 +297,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 labelText: 'Email Address',
                                 fillColor: Theme.of(context).backgroundColor),
                             onSaved: (value) {
-                              _userLogin.email = value ?? '';
+                              _userLogin.email =
+                                  value?.toLowerCase().trim() ?? '';
                             },
                           ),
                         ),
@@ -340,7 +333,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 labelText: 'Password',
                                 fillColor: Theme.of(context).backgroundColor),
                             onSaved: (value) {
-                              _password = value ?? '';
+                              _userLogin.password = value?.trim() ?? '';
                             },
                             obscureText: _obscureText,
                             onEditingComplete: () => FocusScope.of(context)

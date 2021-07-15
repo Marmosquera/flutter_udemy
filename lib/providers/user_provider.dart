@@ -33,11 +33,16 @@ class UserProvider with ChangeNotifier {
       _auth.signInWithEmailAndPassword(email: email, password: password);
 
   Future<UserCredential> createUserWithEmailAndPassword(
-          UserLoginData userLoginData, String password) =>
+          UserLoginData userLoginData) =>
       _auth
           .createUserWithEmailAndPassword(
-              email: userLoginData.email, password: password)
-          .then((value) {
+              email: userLoginData.email, password: userLoginData.password!)
+          .then((value) async {
+        userLoginData.id = value.user!.uid;
+        if (userLoginData.pickedImage != null) {
+          userLoginData.imageUrl =
+              await _userRepository.saveUserImage(userLoginData);
+        }
         userLoginData.joinedAt = DateTime.now().toUtc();
         _userRepository.saveUserData(userLoginData);
         return value;
