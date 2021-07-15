@@ -1,4 +1,7 @@
+import 'package:provider/provider.dart';
 import 'package:udemy_course/bottom_bar.dart';
+import 'package:udemy_course/providers/user_provider.dart';
+import 'package:udemy_course/widgets/app_dialogs.dart';
 
 import '/consts/app_icons.dart';
 import '/consts/app_colors.dart';
@@ -18,6 +21,11 @@ class _LandingPageState extends State<LandingPage>
     with TickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation;
+  late UserProvider _userProvider;
+
+  bool _isGoogleLoading = false;
+  bool _isAnonymousLoading = false;
+
   final List<String> images = [
     'https://media.istockphoto.com/photos/man-at-the-shopping-picture-id868718238?k=6&m=868718238&s=612x612&w=0&h=ZUPCx8Us3fGhnSOlecWIZ68y3H4rCiTnANtnjHk0bvo=',
     'https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fdam%2Fimageserve%2F1138257321%2F0x0.jpg%3Ffit%3Dscale',
@@ -50,16 +58,46 @@ class _LandingPageState extends State<LandingPage>
     super.dispose();
   }
 
+  Future<void> _googleSignIn() async {
+    setState(() {
+      _isGoogleLoading = true;
+    });
+    try {
+      await _userProvider.signInWithGoogle();
+    } catch (error) {
+      AppDialogs.showError(context, 'Auth Error', error.toString(), () {});
+    } finally {
+      setState(() {
+        _isGoogleLoading = false;
+      });
+    }
+  }
+
+  Future<void> _anonymouslySignIn() async {
+    setState(() {
+      _isAnonymousLoading = true;
+    });
+    try {
+      await _userProvider.signInAnonymously();
+    } catch (error) {
+      AppDialogs.showError(context, 'Auth Error', error.toString(), () {});
+    } finally {
+      setState(() {
+        _isAnonymousLoading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    _userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
         body: Stack(children: [
       CachedNetworkImage(
         imageUrl: images[1],
-        // placeholder: (context, url) => Image.network(
-        //   'https://image.flaticon.com/icons/png/128/564/564619.png',
-        //   fit: BoxFit.contain,
-        // ),
+        placeholder: (context, url) => Center(
+          child: CircularProgressIndicator(),
+        ),
         errorWidget: (context, url, error) => Icon(Icons.error),
         fit: BoxFit.cover,
         height: double.infinity,
@@ -206,21 +244,37 @@ class _LandingPageState extends State<LandingPage>
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               OutlinedButton(
-                onPressed: () {},
+                onPressed: () => _googleSignIn(),
                 style: OutlinedButton.styleFrom(
                   shape: StadiumBorder(),
                   side: BorderSide(width: 2, color: Colors.red),
                 ),
-                child: Text('Google +'),
+                child: !_isGoogleLoading
+                    ? Text('Google +')
+                    : Center(
+                        child: SizedBox(
+                        child: CircularProgressIndicator(),
+                        height: 14,
+                        width: 14,
+                      )),
               ),
               OutlinedButton(
-                onPressed: () => Navigator.pushReplacementNamed(
-                    context, BottomBarScreen.routeName),
+                onPressed: () => _anonymouslySignIn()
+                /*Navigator.pushReplacementNamed(
+                    context, BottomBarScreen.routeName)*/
+                ,
                 style: OutlinedButton.styleFrom(
                   shape: StadiumBorder(),
                   side: BorderSide(width: 2, color: Colors.deepPurple),
                 ),
-                child: Text('Sign in as a guest'),
+                child: !_isAnonymousLoading
+                    ? Text('Sign in as a guest')
+                    : Center(
+                        child: SizedBox(
+                        child: CircularProgressIndicator(),
+                        height: 14,
+                        width: 14,
+                      )),
               ),
             ],
           ),
