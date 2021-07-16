@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:udemy_course/models/product.dart';
 
 import 'package:udemy_course/models/product_input.dart';
 
@@ -13,25 +14,13 @@ class ProductRepository {
       .collection(PRODUCTS_COLLECTION)
       .doc(productInput.id)
       .set(productInput.toJson());
-/*
-  Future<UserLoginData> getUserData(String id) async {
-    UserLoginData userData = UserLoginData();
-    final doc = await FirebaseFirestore.instance
-        .collection(USERS_COLLECTION)
-        .doc(id)
-        .get();
-    if (doc.exists) {
-      userData.id = doc.get('id');
-      userData.fullName = doc.get('name');
-      userData.email = doc.get('email');
-      userData.phoneNumber = doc.get('phoneNumber');
-      userData.imageUrl = doc.get('imageUrl');
-      userData.joinedAt =
-          DateTime.fromMillisecondsSinceEpoch(doc.get('joinedAt'));
-    }
-    return userData;
-  }
-  */
+
+  Future<List<Product>> getProducts() async => await FirebaseFirestore.instance
+      .collection(PRODUCTS_COLLECTION)
+      .get()
+      .then((productsSnapshot) =>
+          productsSnapshot.docs.map((doc) => Product.fromJson(doc.data())))
+      .then((value) => value.toList());
 
   Future<String> saveProductImage(ProductInput productInput) async {
     final ref = FirebaseStorage.instance

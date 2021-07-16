@@ -7,6 +7,17 @@ import '/models/product.dart';
 class ProductsProvider with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  final ProductRepository _productRepository = ProductRepository();
+
+  final List<Product> _products = [];
+
+  Future<void> fetchProducts() async =>
+      _productRepository.getProducts().then((value) {
+        _products.clear();
+        _products.insertAll(0, value);
+      });
+
+/*
   final List<Product> _products = [
     Product(
         id: 'Samsung1',
@@ -588,7 +599,7 @@ class ProductsProvider with ChangeNotifier {
         quantity: 951,
         isPopular: true),
   ];
-
+*/
   List<Product> get products {
     return _products;
   }

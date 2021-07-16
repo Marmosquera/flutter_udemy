@@ -1,9 +1,11 @@
 import 'dart:io';
-
+import 'package:http/http.dart';
+import 'package:list_tile_switch/list_tile_switch.dart';
 import 'package:provider/provider.dart';
 import 'package:udemy_course/consts/app_icons.dart';
 import 'package:udemy_course/models/product_input.dart';
 import 'package:udemy_course/providers/products_provider.dart';
+import 'package:udemy_course/widgets/app_dialogs.dart';
 
 import '/consts/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -30,17 +32,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
 
     if (isValid) {
       _formKey.currentState!.save();
-      print(_product.toJson());
-      /*print(_product.title);
-      print(_product.price);
-      print(_product.productCategoryName);
-      print(_product.brand);
-      print(_product.description);
-      print(_product.quantity);*/
-      // Use those values to send our auth request ...
-
       await _productsProvider.saveProduct(_product);
-
       if (Navigator.canPop(context)) Navigator.pop(context);
     }
   }
@@ -55,7 +47,22 @@ class _UploadProductFormState extends State<UploadProductForm> {
     setState(() {
       _product.pickedImage = pickedImageFile;
     });
-    // widget.imagePickFn(pickedImageFile);
+  }
+
+  void _pickImageUrl() async {
+    final TextEditingController _textFieldController = TextEditingController();
+    await AppDialogs.showInputTextDialog(
+        context, 'Image Url', 'Image Url', _textFieldController, () {},
+        () async {
+      final uri = Uri.parse(_textFieldController.text);
+      //final response = await http.get(uri);
+      //final documentDirectory = await getApplicationDocumentsDirectory();
+      final file = File.fromUri(uri);
+      //file.writeAsBytesSync(response.bodyBytes);
+      setState(() {
+        _product.pickedImage = file;
+      });
+    });
   }
 
   void _pickImageGallery() async {
@@ -263,10 +270,27 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                   child: FlatButton.icon(
                                     textColor: Colors.white,
                                     onPressed: _pickImageGallery,
-                                    icon: Icon(Icons.image,
+                                    icon: Icon(AppIcons.gallery,
                                         color: Colors.purpleAccent),
                                     label: Text(
                                       'Gallery',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        color: Theme.of(context)
+                                            .textSelectionTheme
+                                            .selectionColor,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                FittedBox(
+                                  child: FlatButton.icon(
+                                    textColor: Colors.white,
+                                    onPressed: _pickImageUrl,
+                                    icon: Icon(AppIcons.cloud,
+                                        color: Colors.purpleAccent),
+                                    label: Text(
+                                      'Url',
                                       style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         color: Theme.of(context)
@@ -489,6 +513,32 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                   onSaved: (value) {
                                     _product.quantity = int.parse(value ?? '0');
                                   },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Expanded(
+                              //flex: 2,
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 9),
+                                child: ListTileSwitch(
+                                  value: _product.isPopular,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _product.isPopular = value;
+                                    });
+                                  },
+                                  visualDensity: VisualDensity.comfortable,
+                                  switchType: SwitchType.cupertino,
+                                  switchActiveColor: Colors.indigo,
+                                  title: const Text(
+                                    'Is Popular?',
+                                  ),
                                 ),
                               ),
                             ),

@@ -16,7 +16,11 @@ class AppIcons {
   static IconData minus = FeatherIcons.minus;
 
   static IconData alert = FeatherIcons.alertCircle;
-  static IconData userPlus = FeatherIcons.userPlus;
   static IconData error = Icons.error;
+  static IconData info = FeatherIcons.info;
+
   static IconData upload = FeatherIcons.upload;
+  static IconData userPlus = FeatherIcons.userPlus;
+  static IconData cloud = FeatherIcons.cloud;
+  static IconData gallery = FeatherIcons.image;
 }

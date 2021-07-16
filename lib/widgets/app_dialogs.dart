@@ -67,4 +67,48 @@ class AppDialogs {
           );
         });
   }
+
+  static Future<void> showInputTextDialog(
+      BuildContext context,
+      String title,
+      String hintText,
+      TextEditingController textFieldController,
+      VoidCallback fncCancel,
+      VoidCallback fncOk) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext ctx) {
+          return AlertDialog(
+            title: Row(
+              children: [
+                Padding(
+                    padding: const EdgeInsets.only(right: 6.0),
+                    child: Icon(AppIcons.info)),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(title),
+                )
+              ],
+            ),
+            content: TextField(
+              controller: textFieldController,
+              decoration: InputDecoration(hintText: hintText),
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    fncCancel();
+                    Navigator.pop(context);
+                  },
+                  child: Text('Cancel')),
+              TextButton(
+                  onPressed: () {
+                    fncOk();
+                    Navigator.pop(context);
+                  },
+                  child: Text('Ok')),
+            ],
+          );
+        });
+  }
 }
