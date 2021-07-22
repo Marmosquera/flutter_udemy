@@ -1,17 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:udemy_course/repositories/stripe_repository.dart';
 import 'package:udemy_course/widgets/app_dialogs.dart';
 import '/consts/app_icons.dart';
 import '/providers/cart_provider.dart';
 import '/widgets/cart_empty.dart';
 import '/widgets/cart_full.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   static const routeName = '/CartScreen';
 
   @override
+  _CartScreenState createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  late CartProvider _cartProvider;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    StripeRepository.init();
+  }
+
+  Future<void> payWithCard({required int amount}) async {
+    double amountInCents = _cartProvider.totalAmount * 1000;
+    int intengerAmount = (amountInCents / 10).ceil();
+
+    var snack = ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('please wait'),
+        duration: Duration(seconds: 1),
+      ),
+    );
+    var response = await StripeRepository.payWithNewCard(
+        currency: 'USD', amount: intengerAmount.toString());
+    snack.close();
+    //print('response : ${response.success}');
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text('ok'),
+      duration: Duration(milliseconds: response.success ? 1200 : 3000),
+    ));
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final _cartProvider = Provider.of<CartProvider>(context);
+    _cartProvider = Provider.of<CartProvider>(context);
     return _cartProvider.cartItems.isEmpty
         ? Scaffold(
             appBar: AppBar(
@@ -67,7 +102,7 @@ class CartScreen extends StatelessWidget {
                   color: Colors.red,
                   child: InkWell(
                     borderRadius: BorderRadius.circular(30),
-                    onTap: () {},
+                    onTap: () async => payWithCard,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(

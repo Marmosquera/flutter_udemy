@@ -44,6 +44,7 @@ dependencies:
   uuid: 3.0.4
   http: ^0.13.3
   path_provider: ^2.0.2
+  stripe_payment: ^1.1.4
   
 dev_dependencies:
   flutter_test:
