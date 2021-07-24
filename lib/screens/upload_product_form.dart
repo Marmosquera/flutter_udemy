@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:http/http.dart';
 import 'package:list_tile_switch/list_tile_switch.dart';
 import 'package:provider/provider.dart';
 import 'package:udemy_course/consts/app_icons.dart';

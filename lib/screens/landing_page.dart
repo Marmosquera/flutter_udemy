@@ -1,5 +1,4 @@
 import 'package:provider/provider.dart';
-import 'package:udemy_course/bottom_bar.dart';
 import 'package:udemy_course/providers/user_provider.dart';
 import 'package:udemy_course/widgets/app_dialogs.dart';
 
