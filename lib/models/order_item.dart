@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:udemy_course/models/cart_item.dart';
 
 class OrderItem with ChangeNotifier {
   final String id;
@@ -30,4 +31,11 @@ class OrderItem with ChangeNotifier {
         price = json['price'],
         imageUrl = json['imageUrl'],
         quantity = json['quantity'];
+
+  OrderItem.fromCartItem(CartItem item)
+      : id = item.id,
+        title = item.title,
+        price = item.price,
+        imageUrl = item.imageUrl,
+        quantity = item.quantity;
 }

@@ -17,7 +17,7 @@ class Order {
         'id': id,
         'userId': userId,
         'createdAt': createdAt.toUtc().millisecondsSinceEpoch,
-        'items': jsonEncode(items.map((e) => e.toJson()))
+        'items': jsonEncode(items.map((e) => e.toJson()).toList())
       };
 
   Order.fromJson(Map<String, dynamic> json)

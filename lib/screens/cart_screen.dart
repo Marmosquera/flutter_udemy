@@ -23,16 +23,11 @@ class _CartScreenState extends State<CartScreen> {
     StripeRepository.init();
   }
 
+/*
   Future<void> payWithCard() async {
     double amountInCents = _cartProvider.totalAmount * 1000;
     int intengerAmount = (amountInCents / 10).ceil();
 
-    var snack = ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('please wait'),
-        duration: Duration(seconds: 1),
-      ),
-    );
     var response = await StripeRepository.payWithNewCard(
         currency: 'USD', amount: intengerAmount.toString());
 
@@ -42,7 +37,7 @@ class _CartScreenState extends State<CartScreen> {
       duration: Duration(milliseconds: response.success ? 1200 : 3000),
     ));
   }
-
+*/
   @override
   Widget build(BuildContext context) {
     _cartProvider = Provider.of<CartProvider>(context);
@@ -101,7 +96,7 @@ class _CartScreenState extends State<CartScreen> {
                   color: Colors.red,
                   child: InkWell(
                     borderRadius: BorderRadius.circular(30),
-                    onTap: () async => payWithCard(),
+                    onTap: () async => _cartProvider.checkout(),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
