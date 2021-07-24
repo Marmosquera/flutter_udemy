@@ -4,8 +4,8 @@ import 'package:udemy_course/repositories/stripe_repository.dart';
 import 'package:udemy_course/widgets/app_dialogs.dart';
 import '/consts/app_icons.dart';
 import '/providers/cart_provider.dart';
-import '/widgets/cart_empty.dart';
-import '/widgets/cart_full.dart';
+import 'cart_empty.dart';
+import 'cart_full.dart';
 
 class CartScreen extends StatefulWidget {
   static const routeName = '/CartScreen';
@@ -23,21 +23,6 @@ class _CartScreenState extends State<CartScreen> {
     StripeRepository.init();
   }
 
-/*
-  Future<void> payWithCard() async {
-    double amountInCents = _cartProvider.totalAmount * 1000;
-    int intengerAmount = (amountInCents / 10).ceil();
-
-    var response = await StripeRepository.payWithNewCard(
-        currency: 'USD', amount: intengerAmount.toString());
-
-    //print('response : ${response.success}');
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text('ok'),
-      duration: Duration(milliseconds: response.success ? 1200 : 3000),
-    ));
-  }
-*/
   @override
   Widget build(BuildContext context) {
     _cartProvider = Provider.of<CartProvider>(context);

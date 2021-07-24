@@ -17,7 +17,7 @@ import 'consts/app_styles.dart';
 import 'providers/cart_provider.dart';
 import 'providers/products_provider.dart';
 import 'screens/brands_navigation_rail.dart';
-import 'screens/cart_screen.dart';
+import 'screens/cart/cart_screen.dart';
 import 'screens/categories_feeds.dart';
 import 'screens/landing_page.dart';
 import 'screens/product_detail.dart';

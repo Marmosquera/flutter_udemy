@@ -17,13 +17,15 @@ class Order {
         'id': id,
         'userId': userId,
         'createdAt': createdAt.toUtc().millisecondsSinceEpoch,
-        'items': jsonEncode(items.map((e) => e.toJson()).toList())
+        'items': items.map((e) => e.toJson()).toList()
       };
 
-  Order.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        userId = json['userId'],
-        createdAt = json['createdAt'],
-        items = jsonDecode(json[
-            'items']) /*List<OrderItem>.from( (json['items'] as List).map((Map e) => OrderItem.fromJson(e))*/;
+  Order.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    userId = json['userId'];
+    createdAt = json['createdAt'];
+    json['items'].forEach((v) {
+      items.add(new OrderItem.fromJson(v));
+    });
+  }
 }

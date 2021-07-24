@@ -2,7 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'screens/cart_screen.dart';
+import 'screens/cart/cart_screen.dart';
 import '/screens/feeds.dart';
 import '/screens/home.dart';
 import '/screens/search.dart';
