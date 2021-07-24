@@ -3,7 +3,7 @@ import 'package:udemy_course/providers/favorite_provider.dart';
 import 'package:udemy_course/screens/user.dart';
 
 import '/consts/app_colors.dart';
-import '/screens/cart.dart';
+import '../screens/cart_screen.dart';
 import '/screens/wishlist.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';

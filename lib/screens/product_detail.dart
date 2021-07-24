@@ -11,7 +11,7 @@ import '/consts/app_colors.dart';
 import '/consts/app_icons.dart';
 import '../widgets/feeds_product.dart';
 
-import 'cart.dart';
+import 'cart_screen.dart';
 import 'wishlist.dart';
 
 class ProductDetail extends StatefulWidget {

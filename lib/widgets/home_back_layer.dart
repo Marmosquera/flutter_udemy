@@ -3,7 +3,7 @@ import 'package:udemy_course/screens/upload_product_form.dart';
 
 import '/consts/app_icons.dart';
 import '/consts/app_colors.dart';
-import '/screens/cart.dart';
+import '../screens/cart_screen.dart';
 import '/screens/feeds.dart';
 import '/screens/wishlist.dart';
 

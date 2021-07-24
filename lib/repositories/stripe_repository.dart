@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/services.dart';
 import 'package:stripe_payment/stripe_payment.dart';
 
@@ -28,9 +26,7 @@ class StripeRepository {
     try {
       var paymentMethod = await StripePayment.paymentRequestWithCardForm(
           CardFormPaymentRequest());
-/*      var paymentIntent =
-          await StripeService.createPaymentIntent(amount, currency);
-      var response = await StripePayment.confirmPaymentIntent(PaymentIntent(
+      /*var response = await StripePayment.confirmPaymentIntent(PaymentIntent(
           clientSecret: paymentIntent['client_secret'],
           paymentMethodId: paymentMethod.id));
       if (response.status == 'succeeded') {

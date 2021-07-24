@@ -19,12 +19,11 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     StripeRepository.init();
   }
 
-  Future<void> payWithCard({required int amount}) async {
+  Future<void> payWithCard() async {
     double amountInCents = _cartProvider.totalAmount * 1000;
     int intengerAmount = (amountInCents / 10).ceil();
 
@@ -36,7 +35,7 @@ class _CartScreenState extends State<CartScreen> {
     );
     var response = await StripeRepository.payWithNewCard(
         currency: 'USD', amount: intengerAmount.toString());
-    snack.close();
+
     //print('response : ${response.success}');
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text('ok'),
@@ -102,7 +101,7 @@ class _CartScreenState extends State<CartScreen> {
                   color: Colors.red,
                   child: InkWell(
                     borderRadius: BorderRadius.circular(30),
-                    onTap: () async => payWithCard,
+                    onTap: () async => payWithCard(),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
