@@ -11,6 +11,10 @@ class ProductsProvider with ChangeNotifier {
 
   final List<Product> _products = [];
 
+  ProductsProvider() {
+    fetchProducts();
+  }
+
   Future<void> fetchProducts() async =>
       _productRepository.getProducts().then((value) {
         _products.clear();

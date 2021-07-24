@@ -15,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     var _productsProvider = Provider.of<ProductsProvider>(context);
-    _productsProvider.fetchProducts();
+    //_productsProvider.fetchProducts();
     return Scaffold(
       body: BackdropScaffold(
         frontLayerBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
