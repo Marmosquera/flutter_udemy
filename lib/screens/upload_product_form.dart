@@ -249,70 +249,94 @@ class _UploadProductFormState extends State<UploadProductForm> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 FittedBox(
-                                  child: FlatButton.icon(
-                                    textColor: Colors.white,
+                                  child: TextButton(
                                     onPressed: _pickImageCamera,
-                                    icon: Icon(Icons.camera,
-                                        color: Colors.purpleAccent),
-                                    label: Text(
-                                      'Camera',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        color: Theme.of(context)
-                                            .textSelectionTheme
-                                            .selectionColor,
-                                      ),
+                                    child: Row(
+                                      children: [
+                                        Icon(Icons.camera,
+                                            color: Colors.purpleAccent),
+                                        SizedBox(
+                                          width: 4,
+                                        ),
+                                        Text(
+                                          'Camera',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            color: Theme.of(context)
+                                                .textSelectionTheme
+                                                .selectionColor,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
                                 FittedBox(
-                                  child: FlatButton.icon(
-                                    textColor: Colors.white,
+                                  child: TextButton(
                                     onPressed: _pickImageGallery,
-                                    icon: Icon(AppIcons.gallery,
-                                        color: Colors.purpleAccent),
-                                    label: Text(
-                                      'Gallery',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        color: Theme.of(context)
-                                            .textSelectionTheme
-                                            .selectionColor,
-                                      ),
+                                    child: Row(
+                                      children: [
+                                        Icon(AppIcons.gallery,
+                                            color: Colors.purpleAccent),
+                                        SizedBox(
+                                          width: 4,
+                                        ),
+                                        Text(
+                                          'Gallery',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            color: Theme.of(context)
+                                                .textSelectionTheme
+                                                .selectionColor,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
                                 FittedBox(
-                                  child: FlatButton.icon(
-                                    textColor: Colors.white,
+                                  child: TextButton(
                                     onPressed: _pickImageUrl,
-                                    icon: Icon(AppIcons.cloud,
-                                        color: Colors.purpleAccent),
-                                    label: Text(
-                                      'Url',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        color: Theme.of(context)
-                                            .textSelectionTheme
-                                            .selectionColor,
-                                      ),
+                                    child: Row(
+                                      children: [
+                                        Icon(AppIcons.cloud,
+                                            color: Colors.purpleAccent),
+                                        SizedBox(
+                                          width: 4,
+                                        ),
+                                        Text(
+                                          'Url',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            color: Theme.of(context)
+                                                .textSelectionTheme
+                                                .selectionColor,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
                                 FittedBox(
-                                  child: FlatButton.icon(
-                                    textColor: Colors.white,
+                                  child: TextButton(
                                     onPressed: _removeImage,
-                                    icon: Icon(
-                                      Icons.remove_circle_rounded,
-                                      color: Colors.red,
-                                    ),
-                                    label: Text(
-                                      'Remove',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.redAccent,
-                                      ),
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.remove_circle_rounded,
+                                          color: Colors.red,
+                                        ),
+                                        SizedBox(
+                                          width: 4,
+                                        ),
+                                        Text(
+                                          'Remove',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.redAccent,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
@@ -320,8 +344,6 @@ class _UploadProductFormState extends State<UploadProductForm> {
                             ),
                           ],
                         ),
-
-                        //    SizedBox(height: 5),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

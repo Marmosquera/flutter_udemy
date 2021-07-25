@@ -1,7 +1,5 @@
 import 'package:backdrop/backdrop.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:udemy_course/providers/products_provider.dart';
 import '/consts/app_colors.dart';
 import '/widgets/home_back_layer.dart';
 import '/widgets/home_front_layer.dart';
@@ -14,8 +12,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    var _productsProvider = Provider.of<ProductsProvider>(context);
-    //_productsProvider.fetchProducts();
     return Scaffold(
       body: BackdropScaffold(
         frontLayerBackgroundColor: Theme.of(context).scaffoldBackgroundColor,

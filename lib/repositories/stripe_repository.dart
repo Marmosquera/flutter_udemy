@@ -35,6 +35,7 @@ class StripeRepository {
             message: 'Transaction failed', success: false)      
 
     */
+
       return StripeTransactionResponse(
           message: 'Transaction successful', success: true);
     } on PlatformException catch (error) {
